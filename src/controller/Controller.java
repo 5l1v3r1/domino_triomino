@@ -98,7 +98,7 @@ public class Controller {
 					do {
 
 						System.out.println("c'est le tour d'un humain");
-new Scanner(System.in).nextLine();
+//new Scanner(System.in).nextLine();
 						while (tableDeJeu.getChoixJoueur(joueurCourant) == -1
 								|| tableDeJeu.getChoixJoueur(joueurCourant) >= jCourant.getMain().size()) {
 							System.err.print("x"); // choix piece main
@@ -166,31 +166,44 @@ new Scanner(System.in).nextLine();
 
 		if (y > 28) {
 			for (int i = 28; i < y; i++) {
+				System.out.println("i="+i);
+				System.out.println("x="+x);
 				point.setX(point.getX() + table[x][i].getX());
 			}
 		} else {
 			for (int i = 28; i > y; i--) {
+				System.out.println("i="+i);
+				System.out.println("x="+x);
 				point.setX(point.getX() - table[x][i].getX());
 			}
 		}
 		point.setX(point.getX() + 500);
 		point.setY(point.getY() + 500);
 		return point;
+		
 	}
 
-	private static Point getOffset(PieceDomino piece) {
-		if (piece.isCentre()) {
-			if (piece.getRot() == 0) {
-				return new Point(20, 40);
-			} else {
-				return new Point(40, 20);
-			}
-		} else {
-			if (piece.getRot() == 0) {
-				return new Point(80, 40);
-			} else {
-				return new Point(40, 80);
-			}
-		}
+	private static Point getOffset(Point [][]table,PieceDomino piece,PieceDomino oldPiece,int x,int y) {
+		Point oldPoint=table[x][y];
+		
+		
+		
+		
+		
+		
 	}
+//		if (piece.isCentre()) {
+//			if (piece.getRot() == 0) {
+//				return new Point(20, 40);
+//			} else {
+//				return new Point(40, 20);
+//			}
+//		} else {
+//			if (piece.getRot() == 0) {
+//				return new Point(80, 40);
+//			} else {
+//				return new Point(40, 80);
+//			}
+//		}
+//	}
 }

@@ -2,6 +2,7 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Joueur {
 	private String nom;
@@ -104,8 +105,9 @@ public class Joueur {
 			if (!this.isCpu()) {
 				x = this.getPointJoueurHumain(table, piece, posX, posY).getX();
 				y = this.getPointJoueurHumain(table, piece, posX, posY).getY();
+				
 				System.out.println("x=" + x + " " + y);
-
+				new Scanner(System.in).nextLine();
 				if (table.coupValide(jeu, piece, new Point(x, y))) {
 					System.out.println("Joueur:coup valide en" + posX + posY + "avec la piece" + piece);
 					Point ptx = this.getPointJoueurHumain(table, piece, posX, posY);
@@ -207,6 +209,10 @@ public class Joueur {
 	}
 
 	public Point getPointJoueurHumain(Table table, PieceDomino piece, int posX, int posY) {
+		
+		
+		
+		
 		int x = posX;
 		int y = posY;
 		System.out.println("getPointJoueurHumain");
@@ -218,12 +224,14 @@ public class Joueur {
 		System.out.println("piece table" + pieceTable.getX() + pieceTable.getY());
 
 		if ((piece.getRot() == 1 && pieceTable.getRot() == 1 && piece.getX() == pieceTable.getY())
-				|| (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getY() == pieceTable.getX())
+				|| (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getX() == pieceTable.getX())
+				|| (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getX() == pieceTable.getY())
 				|| (piece.getRot() == 0 && pieceTable.getY() == 1 && piece.getX() == piece.getY()
 						&& piece.getX() == pieceTable.getY())) {
 			return new Point(x + 1, y);
 		} else if ((piece.getRot() == 1 && pieceTable.getRot() == 1 && piece.getY() == pieceTable.getX())
 				|| (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getY() == pieceTable.getY())
+				|| (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getY() == pieceTable.getX())
 				|| (piece.getRot() == 0 && pieceTable.getY() == 1 && piece.getX() == piece.getY()
 						&& piece.getX() == pieceTable.getY())) {
 			return new Point(x - 1, y);
@@ -243,49 +251,7 @@ public class Joueur {
 			return new Point(0, 0);
 		}
 
-		// if ((piece.getRot() == 1 && pieceTable.getRot() == 1 && piece.getX()
-		// == pieceTable.getY())
-		// || (piece.getRot() == 0 && pieceTable.getRot() == 1 && piece.getX()
-		// == piece.getY()
-		// && piece.getX() == pieceTable.getY())
-		// || (piece.getRot() == 1 && pieceTable.getRot() == 0 &&
-		// pieceTable.getX() == pieceTable.getY()
-		// && piece.getX() == pieceTable.getY())) { // piece tahtha
-		// return (new Point(x + 1, y));
-		// } else if ((piece.getRot() == 1 && pieceTable.getRot() == 1 &&
-		// piece.getY() == pieceTable.getX())
-		// || (piece.getRot() == 0 && pieceTable.getRot() == 1 && piece.getX()
-		// == piece.getY()
-		// && piece.getY() == pieceTable.getX())
-		// || (piece.getRot() == 1 && pieceTable.getRot() == 0 &&
-		// pieceTable.getX() == pieceTable.getY()
-		// && piece.getX() == pieceTable.getY())) {
-		// return (new Point(x - 1, y));
-		// }
-		//
-		// else if ((piece.getRot() == 0 && pieceTable.getRot() == 0 &&
-		// piece.getY() == pieceTable.getX())
-		// || (piece.getRot() == 0 && pieceTable.getRot() == 1 &&
-		// pieceTable.getX() == pieceTable.getY()
-		// && piece.getY() == pieceTable.getX())
-		// || (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getX()
-		// == piece.getY()
-		// && piece.getX() == pieceTable.getX())) {
-		// return (new Point(x, y - 1));
-		// }
-		//
-		// else if ((piece.getRot() == 0 && pieceTable.getRot() == 0 &&
-		// piece.getX() == pieceTable.getY())
-		// || (piece.getRot() == 0 && pieceTable.getRot() == 1 &&
-		// pieceTable.getX() == pieceTable.getY()
-		// && piece.getX() == pieceTable.getY())
-		// || (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getX()
-		// == piece.getY()
-		// && piece.getX() == pieceTable.getY())) {
-		// return (new Point(x, y + 1));
-		// } else {
-		// return (new Point(1, 1)); // bypass et passe a coup invalide
-		// }
+		
 	}
 
 	public boolean nePeutPasJouer(int jeu, Table table) {

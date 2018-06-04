@@ -123,7 +123,7 @@ public class Table {
 						return true;
 				}
 				else if(table[x+1][y].getRot()==0){
-					if(piece.getRot()==1 && (piece.getX()==table[x+1][y].getX() || table[x+1][y].getX()==piece.getY()))
+					if(piece.getRot()==1 && (piece.getY()==table[x+1][y].getX() || table[x+1][y].getY()==piece.getY()))
 						return true;
 				}
 				
