@@ -28,7 +28,7 @@ public class ChoixJoueurs {
 	private JCheckBox chckbxHumainP3;
 	private JCheckBox chckbxHumainP2;
 	private JCheckBox chckbxHumainP1;
-	private ArrayList<Joueur>joueurs;
+	private ArrayList<Joueur> joueurs;
 
 	/**
 	 * Launch the application.
@@ -37,8 +37,8 @@ public class ChoixJoueurs {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChoixJoueurs window = new ChoixJoueurs(0);
-					
+				//	ChoixJoueurs window = new ChoixJoueurs(0);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,9 +50,10 @@ public class ChoixJoueurs {
 	 * Create the application.
 	 */
 	public ChoixJoueurs(int jeu) {
-		joueurs=new ArrayList<Joueur>();
+		joueurs = new ArrayList<Joueur>();
 		initialize(jeu);
 	}
+
 	public ArrayList<Joueur> getJoueurs() {
 		return joueurs;
 	}
@@ -61,9 +62,10 @@ public class ChoixJoueurs {
 		this.joueurs = joueurs;
 	}
 
-	public void exit(){
+	public void exit() {
 		this.frame.dispose();
 	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -136,7 +138,7 @@ public class ChoixJoueurs {
 		frame.getContentPane().add(chckbxHumainP4);
 
 		btnValiderChoix = new JButton("Valider choix");
-		
+
 		btnValiderChoix.setBounds(148, 191, 117, 29);
 		frame.getContentPane().add(btnValiderChoix);
 
@@ -181,10 +183,10 @@ public class ChoixJoueurs {
 			public void actionPerformed(ActionEvent e) {
 				joueurs.add(new Joueur(jeu, txtPlayer1.getText(), false));
 				joueurs.add(new Joueur(jeu, txtPlayer2.getText(), !chckbxHumainP2.isSelected()));
-				if(!chckbxDesactiverP3.isSelected()){
+				if (!chckbxDesactiverP3.isSelected()) {
 					joueurs.add(new Joueur(jeu, txtPlayer3.getText(), !chckbxHumainP3.isSelected()));
 				}
-				if(!chckbxDesactiverP4.isSelected()){
+				if (!chckbxDesactiverP4.isSelected()) {
 					joueurs.add(new Joueur(jeu, txtPlayer4.getText(), !chckbxHumainP4.isSelected()));
 				}
 				frame.dispose();

@@ -2,7 +2,6 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Joueur {
 	private String nom;
@@ -97,7 +96,7 @@ public class Joueur {
 	}
 
 	public Point coup(int jeu, PieceDomino piece, int indexDePieceDansLaMain, Table table, int posX, int posY,
-			int rotation, boolean centre) {
+			int rotation, boolean centre, Point oldP) {
 		int x, y;
 		if (jeu == 0) {
 			this.getMain().get(indexDePieceDansLaMain).setCentre(centre);
@@ -105,10 +104,10 @@ public class Joueur {
 			if (!this.isCpu()) {
 				x = this.getPointJoueurHumain(table, piece, posX, posY).getX();
 				y = this.getPointJoueurHumain(table, piece, posX, posY).getY();
-				
-				System.out.println("x=" + x + " " + y);
-				new Scanner(System.in).nextLine();
-				if (table.coupValide(jeu, piece, new Point(x, y))) {
+
+				System.out.println("x=" + x + "y= " + y);
+
+				if (table.coupValide(jeu, piece, new Point(x, y), new Point(0, 0))) {
 					System.out.println("Joueur:coup valide en" + posX + posY + "avec la piece" + piece);
 					Point ptx = this.getPointJoueurHumain(table, piece, posX, posY);
 					table.getTable()[ptx.getX()][ptx.getY()] = piece;
@@ -154,7 +153,7 @@ public class Joueur {
 				for (Point p : table.getExtremite()) {
 					for (int i = 0; i < this.getMain().size(); i++) {
 						for (PieceDomino pi : this.getMain().get(i).getAllSwipes()) {
-							if (table.coupValide(0, pi, p)) {
+							if (table.coupValide(0, pi, p, oldP)) {
 								this.getMain().remove(i);
 								table.getTable()[p.getX()][p.getY()] = pi;
 								x = p.getX();
@@ -175,9 +174,9 @@ public class Joueur {
 										table.getExtremite().add(new Point(posX, posY - 1));
 								}
 
-								System.out.println(table.getExtremite());
+							
 								table.getExtremite().remove(p);
-
+								
 								/*
 								 * 
 								 * 
@@ -194,7 +193,7 @@ public class Joueur {
 								 * Point(posX, posY - 1)); }
 								 * 
 								 */
-
+								System.out.println(table.getExtremite());
 								return new Point(x, y);
 							}
 						}
@@ -209,10 +208,7 @@ public class Joueur {
 	}
 
 	public Point getPointJoueurHumain(Table table, PieceDomino piece, int posX, int posY) {
-		
-		
-		
-		
+
 		int x = posX;
 		int y = posY;
 		System.out.println("getPointJoueurHumain");
@@ -220,8 +216,8 @@ public class Joueur {
 		System.out.println("posY=" + posY);
 		PieceDomino pieceTable = table.getTable()[posX][posY];
 		System.out.println("piece " + piece.getRot() + "piece table" + pieceTable.getRot());
-		System.out.println("piece " + piece.getX() + piece.getY());
-		System.out.println("piece table" + pieceTable.getX() + pieceTable.getY());
+		System.out.println("piece x=" + piece.getX() + " y = "+piece.getY()+piece);
+		System.out.println("piece table x=" + pieceTable.getX()+" y= " + pieceTable.getY()+pieceTable);
 
 		if ((piece.getRot() == 1 && pieceTable.getRot() == 1 && piece.getX() == pieceTable.getY())
 				|| (piece.getRot() == 1 && pieceTable.getRot() == 0 && piece.getX() == pieceTable.getX())
@@ -251,7 +247,6 @@ public class Joueur {
 			return new Point(0, 0);
 		}
 
-		
 	}
 
 	public boolean nePeutPasJouer(int jeu, Table table) {
