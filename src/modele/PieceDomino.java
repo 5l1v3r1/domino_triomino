@@ -9,7 +9,7 @@ public class PieceDomino extends Piece {
 
 	@Override
 	public String toString() {
-		return "PieceDomino [rot=" + rot + ", centre=" + centre + "]";
+		return "PieceDomino [ x= "+getX() +"y= "+getY()+" rot=" + rot + ", centre=" + centre + "]";
 	}
 
 	public int getRot() {

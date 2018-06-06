@@ -3,7 +3,6 @@ package vue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -91,13 +90,12 @@ public class TableDomino {
 		int i;
 		for (i = 0; i < pieces.size(); i++) {
 			zonePiecesJoueurs[nbJoueur][i].setIcon(new ImageIcon(TableDomino.recuprerCheminPiece(pieces.get(i))));
-		
-			
+
 		}
 		for (; i <= 6; i++) {
 			zonePiecesJoueurs[nbJoueur][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/0x.png"));
 		}
-		
+
 	}
 
 	public void setNomJoueur(int nbJoueur, String nom) {
@@ -138,7 +136,7 @@ public class TableDomino {
 		zonesJoueurs = new JPanel[4];
 		nomJoueurs = new JLabel[4];
 		zonePiecesJoueurs = new JLabel[4][7];
-		table=new Point[55][55];
+		table = new Point[55][55];
 		choixJoueur = new int[4];
 		this.resetChoix();
 		initialize();
@@ -356,9 +354,9 @@ public class TableDomino {
 		panel_3.add(j4p6);
 
 		zonePieces = new JPanel();
-	
+
 		JScrollPane js = new JScrollPane();
-	
+
 		js.setViewportView(zonePieces);
 		js.setAlignmentX(100000);
 		js.setAlignmentY(1000);
