@@ -1,12 +1,12 @@
 package vue;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ChoixJeu {
 
@@ -21,7 +21,7 @@ public class ChoixJeu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChoixJeu window = new ChoixJeu();
+			//		ChoixJeu window = new ChoixJeu();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
