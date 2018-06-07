@@ -349,7 +349,6 @@ public class Table {
 			for (int i = 0; i < joueurs.size(); i++) {
 				
 				if (joueurs.get(i).mainVide()) {
-					System.out.println("main de "+i+" vide");
 					return i;
 				} else {
 					if (joueurs.get(i).getMain().size() < min) {

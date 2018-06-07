@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.Scanner;
-
 import modele.Joueur;
 import modele.PieceDomino;
 import modele.Point;
@@ -62,11 +60,14 @@ public class Controller {
 		int premierePieceAjouer = modele.getJoueurs().get(joueurCourant).indexDuPlusGrandDouble();
 		tableDeJeu.dessinerPiece(jCourant.getMain().get(premierePieceAjouer), 500, 500, 28, 28);
 		modele.getTable()[28][28] = jCourant.getMain().get(premierePieceAjouer);
+		modele.getTable()[28][28].setCentre(true);
 		tableDeJeu.getTable()[28][28] = new Point(500, 500);
 		jCourant.getMain().remove(premierePieceAjouer);
 		tableDeJeu.dessinerPiecesJoueur(joueurCourant, jCourant.getMain());
 		modele.getExtremite().add(new Point(28, 29));
 		modele.getExtremite().add(new Point(28, 27));
+		modele.getExtremite().add(new Point(27, 28));
+		modele.getExtremite().add(new Point(29, 28));
 		joueurCourant = (joueurCourant + 1) % nbJoueurs;
 		jCourant = modele.getJoueurs().get(joueurCourant);
 		tableDeJeu.setToken(joueurCourant);
@@ -130,7 +131,7 @@ public class Controller {
 						
 						System.err.println("verif choix rot");
 						System.out.println(jCourant.getMain().get(tableDeJeu.getChoixJoueur(joueurCourant)));
-						new Scanner(System.in).nextLine();
+					
 						
 						pointHumain = jCourant.coup(jeu,
 								jCourant.getMain().get(tableDeJeu.getChoixJoueur(joueurCourant)),
@@ -210,11 +211,11 @@ public class Controller {
 				}
 			} else if (piece.isCentre() && piece.getX() == piece.getY() && !oldPiece.isCentre()) {
 				if (piece.getX() == oldPiece.getX() && newY == y - 1) {
-					newPoint.setX(oldPoint.getX() - 40);
-					newPoint.setY(oldPoint.getY() - 40);
+					newPoint.setX(oldPoint.getX() -40);
+					newPoint.setY(oldPoint.getY() - 20);
 				} else if (piece.getX() == oldPiece.getY() && newY == y + 1) {
-					newPoint.setX(oldPoint.getX() - 40);
-					newPoint.setY(oldPoint.getY() + 80);
+					newPoint.setX(oldPoint.getX() - 0);
+					newPoint.setY(oldPoint.getY() - 20);
 				}
 
 			} else {

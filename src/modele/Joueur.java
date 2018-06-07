@@ -94,20 +94,91 @@ public class Joueur {
 	public boolean mainVide() {
 		return (this.main.size() == 0);
 	}
-
+	public void ajouterExtremites(int jeu,Table table, int newX,int newY){
+		if(table.getTable()[newX+1][newY]==null){
+			table.getExtremite().add(new Point(newX+1, newY));
+		}
+		if(table.getTable()[newX-1][newY]==null){
+			table.getExtremite().add(new Point(newX-1, newY));
+		}
+		if(table.getTable()[newX][newY+1]==null){
+			table.getExtremite().add(new Point(newX, newY+1));
+		}
+		if(table.getTable()[newX][newY-1]==null){
+			table.getExtremite().add(new Point(newX, newY-1));
+		}
+	}
+	public void supprimerExtremites(int jeu,Table table, PieceDomino piece,int oldX,int oldY,int newX,int newY){
+		//ajout jeu apres
+		PieceDomino pieceTable=table.getTable()[oldX][oldY];
+		table.getExtremite().remove(new Point(newX, newY)); //le point joué est forcement supprimé
+		if(pieceTable.isCentre()){
+			
+		}
+		else if(piece.getRot()==pieceTable.getRot()){
+		if(newY==oldY-1 && table.getTable()[oldX][oldY+1]!=null){
+			table.getExtremite().remove(new Point(oldX+1, oldY));
+			table.getExtremite().remove(new Point(oldX-1, oldY));
+		}
+		else if(newY==oldY+1 && table.getTable()[oldX][oldY-1]!=null){
+			table.getExtremite().remove(new Point(oldX+1, oldY));
+			table.getExtremite().remove(new Point(oldX-1, oldY));
+		}else if(newX==oldX-1 && table.getTable()[oldX+1][oldY]!=null){
+			table.getExtremite().remove(new Point(oldX, oldY+1));
+			table.getExtremite().remove(new Point(oldX, oldY-1));
+		}
+		else if(newX==oldX+1 && table.getTable()[oldX-1][oldY]!=null){
+			table.getExtremite().remove(new Point(oldX, oldY+1));
+			table.getExtremite().remove(new Point(oldX, oldY-1));
+		}
+		} else if(pieceTable.getRot()!=piece.getRot()){
+		
+			//TODO 
+			if(newY==oldY+1 && piece.getX()==pieceTable.getX()){
+				table.getExtremite().remove(new Point(oldX-1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY-1));
+			}else if(newY==oldY+1 && piece.getX()==pieceTable.getY()){
+				table.getExtremite().remove(new Point(oldX+1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY-1));
+			}else if(newY==oldY-1 && piece.getY()==pieceTable.getX()){
+				table.getExtremite().remove(new Point(oldX-1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY+1));
+			}else if(newY==oldY-1 && piece.getY()==pieceTable.getY()){
+				table.getExtremite().remove(new Point(oldX+1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY+1));
+			}
+			
+			
+			
+			
+			if(newX==oldX+1 && piece.getX()==pieceTable.getX()){
+				table.getExtremite().remove(new Point(oldX-1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY-1));
+			}else if(newX==oldX+1 && piece.getX()==pieceTable.getY()){
+				table.getExtremite().remove(new Point(oldX-1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY+1));
+			}else if(newX==oldX-1 && piece.getY()==pieceTable.getX()){
+				table.getExtremite().remove(new Point(oldX+1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY-1));
+			}else if(newX==oldX-1 && piece.getY()==pieceTable.getY()){
+				table.getExtremite().remove(new Point(oldX+1, oldY));
+				table.getExtremite().remove(new Point(oldX, oldY+1));
+			}
+		}
+	}
 	public Point coup(int jeu, PieceDomino piece, int indexDePieceDansLaMain, Table table, int posX, int posY,
 			int rotation, boolean centre, Point oldP) {
-		int x=1, y=1;
+		int x = 1, y = 1;
 		if (jeu == 0) {
 			this.getMain().get(indexDePieceDansLaMain).setCentre(centre);
 			this.getMain().get(indexDePieceDansLaMain).setRot(rotation);
 			if (!this.isCpu()) {
-				Point pp=this.getPointJoueurHumain(table, piece, posX, posY);
-				if(pp!=null){
-				x = pp.getX();
-				y = pp.getY();
+				Point pp = this.getPointJoueurHumain(table, piece, posX, posY);
+				if (pp != null) {
+					x = pp.getX();
+					y = pp.getY();
 
-				System.out.println("x=" + x + "y= " + y);
+					System.out.println("x=" + x + "y= " + y);
 				}
 				if (table.coupValide(jeu, piece, new Point(x, y), new Point(posX, posY))) {
 					System.out.println("Joueur:coup valide en" + posX + posY + "avec la piece" + piece);
@@ -115,42 +186,45 @@ public class Joueur {
 					table.getTable()[ptx.getX()][ptx.getY()] = piece;
 
 					this.getMain().remove(indexDePieceDansLaMain);
-					for (int i = 0; i < table.getExtremite().size(); i++) {
-						if (table.getExtremite().get(i).getX() == x && table.getExtremite().get(i).getY() == y) {
-							table.getExtremite().remove(i);
-						}
-						if (!table.getTable()[posX][posY].isCentre()) {
-							table.getExtremite().remove(new Point(posX, posY));
-							table.getExtremite().remove(new Point(posX - 1, posY));
-							table.getExtremite().remove(new Point(posX + 1, posY));
-							table.getExtremite().remove(new Point(posX, posY + 1));
-							table.getExtremite().remove(new Point(posX, posY - 1));
-						}
-					}
-					if (centre) {
-						if (table.getTable()[x - 1][y] == null)
-							table.getExtremite().add(new Point(x - 1, y));
-						if (table.getTable()[x + 1][y] == null)
-							table.getExtremite().add(new Point(x + 1, y));
-						if (table.getTable()[x][y + 1] == null)
-							table.getExtremite().add(new Point(x, y + 1));
-						if (table.getTable()[x][y - 1] == null)
-							table.getExtremite().add(new Point(x, y - 1));
-					} else {
-						if (rotation != 0) {
-							if (table.getTable()[x - 1][y] == null)
-								table.getExtremite().add(new Point(x - 1, y));
-							if (table.getTable()[x + 1][y] == null)
-								table.getExtremite().add(new Point(x + 1, y));
-						} else {
-							if (table.getTable()[x][y + 1] == null)
-								table.getExtremite().add(new Point(x, y + 1));
-							if (table.getTable()[x][y - 1] == null)
-								table.getExtremite().add(new Point(x, y - 1));
-						}
 
-					}
-
+//					for (int i = 0; i < table.getExtremite().size(); i++) {
+//						if (table.getExtremite().get(i).getX() == x && table.getExtremite().get(i).getY() == y) {
+//							table.getExtremite().remove(i);
+//						}
+//						if (!table.getTable()[posX][posY].isCentre()) {
+//							table.getExtremite().remove(new Point(posX, posY));
+//							table.getExtremite().remove(new Point(posX - 1, posY));
+//							table.getExtremite().remove(new Point(posX + 1, posY));
+//							table.getExtremite().remove(new Point(posX, posY + 1));
+//							table.getExtremite().remove(new Point(posX, posY - 1));
+//						}
+//					}
+//					if (centre) {
+//						if (table.getTable()[x - 1][y] == null)
+//							table.getExtremite().add(new Point(x - 1, y));
+//						if (table.getTable()[x + 1][y] == null)
+//							table.getExtremite().add(new Point(x + 1, y));
+//						if (table.getTable()[x][y + 1] == null)
+//							table.getExtremite().add(new Point(x, y + 1));
+//						if (table.getTable()[x][y - 1] == null)
+//							table.getExtremite().add(new Point(x, y - 1));
+//					} else {
+//						if (rotation != 0) {
+//							if (table.getTable()[x - 1][y] == null)
+//								table.getExtremite().add(new Point(x - 1, y));
+//							if (table.getTable()[x + 1][y] == null)
+//								table.getExtremite().add(new Point(x + 1, y));
+//						} else {
+//							if (table.getTable()[x][y + 1] == null)
+//								table.getExtremite().add(new Point(x, y + 1));
+//							if (table.getTable()[x][y - 1] == null)
+//								table.getExtremite().add(new Point(x, y - 1));
+//						}
+//
+//					} // fin tba3Bis extremite
+					this.supprimerExtremites(jeu, table, piece, posX, posY, x, y);
+					this.ajouterExtremites(jeu, table, x, y);
+					System.out.println(table.getExtremite());
 					return new Point(x, y);
 				} else {
 					System.out.println("Classe joueur dit : coup invalide en " + x + " " + y);
@@ -169,38 +243,35 @@ public class Joueur {
 								y = p.getY();
 								posX = x;
 								posY = y;
-								table.getTable()[p.getX()][p.getY()].setRot(0);
+							//	table.getTable()[p.getX()][p.getY()].setRot(0);
 
-								if (pi.getRot() != 0) {
-									if (table.getTable()[posX - 1][posY] == null)
-										table.getExtremite().add(new Point(posX - 1, posY));
-									if (table.getTable()[posX + 1][posY] == null)
-										table.getExtremite().add(new Point(posX + 1, posY));
-								} else {
-									if (table.getTable()[posX][posY + 1] == null)
-										table.getExtremite().add(new Point(posX, posY + 1));
-									if (table.getTable()[posX][posY - 1] == null)
-										table.getExtremite().add(new Point(posX, posY - 1));
-								}
-
-								table.getExtremite().remove(p);
-
-								/*
-								 * 
-								 * 
-								 * if (pi.getRot() == 0) { if
-								 * (table.getTable()[posX - 1][posY] == null)
-								 * table.getExtremite().add(new Point(posX - 1,
-								 * posY)); if (table.getTable()[posX + 1][posY]
-								 * == null) table.getExtremite().add(new
-								 * Point(posX + 1, posY)); } else { if
-								 * (table.getTable()[posX][posY + 1] == null)
-								 * table.getExtremite().add(new Point(posX, posY
-								 * + 1)); if (table.getTable()[posX][posY - 1]
-								 * == null) table.getExtremite().add(new
-								 * Point(posX, posY - 1)); }
-								 * 
-								 */
+//								if (pi.getRot() != 0) {
+//									if (table.getTable()[posX - 1][posY] == null)
+//										table.getExtremite().add(new Point(posX - 1, posY));
+//									if (table.getTable()[posX + 1][posY] == null)
+//										table.getExtremite().add(new Point(posX + 1, posY));
+//								} else {
+//									if (table.getTable()[posX][posY + 1] == null)
+//										table.getExtremite().add(new Point(posX, posY + 1));
+//									if (table.getTable()[posX][posY - 1] == null)
+//										table.getExtremite().add(new Point(posX, posY - 1));
+//								}
+//
+//								table.getExtremite().remove(p);
+//
+//								if (pi.getRot() == 0) {
+//									if (table.getTable()[posX - 1][posY] == null)
+//										table.getExtremite().add(new Point(posX - 1, posY));
+//									if (table.getTable()[posX + 1][posY] == null)
+//										table.getExtremite().add(new Point(posX + 1, posY));
+//								} else {
+//									if (table.getTable()[posX][posY + 1] == null)
+//										table.getExtremite().add(new Point(posX, posY + 1));
+//									if (table.getTable()[posX][posY - 1] == null)
+//										table.getExtremite().add(new Point(posX, posY - 1));
+//								}
+								this.supprimerExtremites(jeu, table, pi, oldP.getX(), oldP.getY(), p.getX(), p.getY());
+								this.ajouterExtremites(jeu, table, p.getX(), p.getY());
 								System.out.println(table.getExtremite());
 								return new Point(x, y);
 							}
@@ -318,7 +389,7 @@ public class Joueur {
 					// }
 				}
 			}
-			System.err.println("*** "+this.getNom()+" ne peu pas jouer");
+			System.err.println("*** " + this.getNom() + " ne peu pas jouer");
 			return true;
 		} else {
 			// TODO trio

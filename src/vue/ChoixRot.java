@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,13 +43,13 @@ public class ChoixRot {
 		JLabel label = new JLabel();
 		JLabel label_1 = new JLabel();
 		JLabel label_2 = new JLabel();
-		PieceDomino pieceOr1=new PieceDomino(piece.getX(),piece.getY());
+		PieceDomino pieceOr1 = new PieceDomino(piece.getX(), piece.getY());
 		pieceOr1.setRot(0);
-		PieceDomino pieceOr2=new PieceDomino(piece.getX(),piece.getY());
+		PieceDomino pieceOr2 = new PieceDomino(piece.getX(), piece.getY());
 		pieceOr2.setRot(1);
-		PieceDomino pieceOr3=new PieceDomino(piece.getY(),piece.getX());
+		PieceDomino pieceOr3 = new PieceDomino(piece.getY(), piece.getX());
 		pieceOr3.setRot(0);
-		PieceDomino pieceOr4=new PieceDomino(piece.getY(),piece.getX());
+		PieceDomino pieceOr4 = new PieceDomino(piece.getY(), piece.getX());
 		pieceOr4.setRot(1);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 404, 229);
@@ -77,7 +76,7 @@ public class ChoixRot {
 				piece.setY(pieceOr1.getY());
 				piece.setRot(pieceOr1.getRot());
 				setRot(0);
-				
+
 			}
 		});
 
@@ -156,8 +155,7 @@ public class ChoixRot {
 				setY(piece.getY());
 				piece.setCentre(chckbxCentre.isSelected());
 				setCentre(chckbxCentre.isSelected());
-				System.err.println(chckbxCentre.isSelected());
-				new Scanner(System.in).nextLine();
+
 			}
 		});
 		btnValider.setBounds(121, 156, 117, 29);
