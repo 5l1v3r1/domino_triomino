@@ -177,8 +177,6 @@ public class Joueur {
 				if (pp != null) {
 					x = pp.getX();
 					y = pp.getY();
-
-					System.out.println("x=" + x + "y= " + y);
 				}
 				if (table.coupValide(jeu, piece, new Point(x, y), new Point(posX, posY))) {
 					System.out.println("Joueur:coup valide en" + posX + posY + "avec la piece" + piece);
@@ -271,7 +269,8 @@ public class Joueur {
 //										table.getExtremite().add(new Point(posX, posY - 1));
 //								}
 								this.supprimerExtremites(jeu, table, pi, oldP.getX(), oldP.getY(), p.getX(), p.getY());
-								this.ajouterExtremites(jeu, table, p.getX(), p.getY());
+								this.ajouterExtremites(jeu, table, x, y);
+							
 								System.out.println(table.getExtremite());
 								return new Point(x, y);
 							}
@@ -389,7 +388,7 @@ public class Joueur {
 					// }
 				}
 			}
-			System.err.println("*** " + this.getNom() + " ne peu pas jouer");
+		
 			return true;
 		} else {
 			// TODO trio

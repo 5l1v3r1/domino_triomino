@@ -3,6 +3,7 @@ package vue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import controller.Controller;
 import modele.PieceDomino;
 import modele.Point;
 
@@ -44,6 +46,14 @@ public class TableDomino {
 				}
 			}
 		});
+	}
+
+	public JPanel getZonePieces() {
+		return zonePieces;
+	}
+
+	public void setZonePieces(JPanel zonePieces) {
+		this.zonePieces = zonePieces;
 	}
 
 	/**
@@ -93,7 +103,7 @@ public class TableDomino {
 
 		}
 		for (; i <= 6; i++) {
-			zonePiecesJoueurs[nbJoueur][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/0x.png"));
+			zonePiecesJoueurs[nbJoueur][i].setIcon(null);
 		}
 
 	}
@@ -132,6 +142,9 @@ public class TableDomino {
 		return res;
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public TableDomino() {
 		zonesJoueurs = new JPanel[4];
 		nomJoueurs = new JLabel[4];
@@ -182,37 +195,37 @@ public class TableDomino {
 		lblNomJoueur.setBounds(6, 6, 100, 16);
 		panel.add(lblNomJoueur);
 
-		JLabel j3p0 = new JLabel("0");
+		JLabel j3p0 = new JLabel();
 		j3p0.setBackground(Color.YELLOW);
 		j3p0.setBounds(16, 34, 81, 80);
 		panel.add(j3p0);
 
-		JLabel j3p1 = new JLabel("1");
+		JLabel j3p1 = new JLabel();
 		j3p1.setBackground(Color.YELLOW);
 		j3p1.setBounds(104, 34, 81, 80);
 		panel.add(j3p1);
 
-		JLabel j3p2 = new JLabel("2");
+		JLabel j3p2 = new JLabel();
 		j3p2.setBackground(Color.YELLOW);
 		j3p2.setBounds(190, 34, 81, 80);
 		panel.add(j3p2);
 
-		JLabel j3p3 = new JLabel("3");
+		JLabel j3p3 = new JLabel();
 		j3p3.setBackground(Color.YELLOW);
 		j3p3.setBounds(276, 34, 81, 80);
 		panel.add(j3p3);
 
-		JLabel j3p4 = new JLabel("4");
+		JLabel j3p4 = new JLabel();
 		j3p4.setBackground(Color.YELLOW);
 		j3p4.setBounds(364, 34, 81, 80);
 		panel.add(j3p4);
 
-		JLabel j3p5 = new JLabel("5");
+		JLabel j3p5 = new JLabel();
 		j3p5.setBackground(Color.YELLOW);
 		j3p5.setBounds(453, 34, 81, 80);
 		panel.add(j3p5);
 
-		JLabel j3p6 = new JLabel("6");
+		JLabel j3p6 = new JLabel();
 		j3p6.setBackground(Color.YELLOW);
 		j3p6.setBounds(546, 34, 81, 80);
 		panel.add(j3p6);
@@ -228,37 +241,37 @@ public class TableDomino {
 		lblNomJoueur_1.setBounds(6, 6, 91, 16);
 		panel_1.add(lblNomJoueur_1);
 
-		JLabel j1p0 = new JLabel("0");
+		JLabel j1p0 = new JLabel();
 		j1p0.setBackground(Color.YELLOW);
 		j1p0.setBounds(16, 27, 81, 80);
 		panel_1.add(j1p0);
 
-		JLabel j1p1 = new JLabel("1");
+		JLabel j1p1 = new JLabel();
 		j1p1.setBackground(Color.YELLOW);
 		j1p1.setBounds(104, 27, 81, 80);
 		panel_1.add(j1p1);
 
-		JLabel j1p2 = new JLabel("2");
+		JLabel j1p2 = new JLabel();
 		j1p2.setBackground(Color.YELLOW);
 		j1p2.setBounds(190, 27, 81, 80);
 		panel_1.add(j1p2);
 
-		JLabel j1p3 = new JLabel("3");
+		JLabel j1p3 = new JLabel();
 		j1p3.setBackground(Color.YELLOW);
 		j1p3.setBounds(276, 27, 81, 80);
 		panel_1.add(j1p3);
 
-		JLabel j1p4 = new JLabel("4");
+		JLabel j1p4 = new JLabel();
 		j1p4.setBackground(Color.YELLOW);
 		j1p4.setBounds(364, 27, 81, 80);
 		panel_1.add(j1p4);
 
-		JLabel j1p5 = new JLabel("5");
+		JLabel j1p5 = new JLabel();
 		j1p5.setBackground(Color.YELLOW);
 		j1p5.setBounds(453, 27, 81, 80);
 		panel_1.add(j1p5);
 
-		JLabel j1p6 = new JLabel("6");
+		JLabel j1p6 = new JLabel();
 		j1p6.setBackground(Color.YELLOW);
 		j1p6.setBounds(546, 27, 81, 80);
 		panel_1.add(j1p6);
@@ -274,36 +287,36 @@ public class TableDomino {
 		lblNomJoueur_2.setBounds(6, 6, 88, 16);
 		panel_2.add(lblNomJoueur_2);
 
-		JLabel j2p0 = new JLabel("0");
+		JLabel j2p0 = new JLabel();
 
 		j2p0.setBounds(6, 31, 81, 80);
 		panel_2.add(j2p0);
 
-		JLabel j2p1 = new JLabel("1");
+		JLabel j2p1 = new JLabel();
 
 		j2p1.setBounds(6, 111, 81, 80);
 		panel_2.add(j2p1);
 
-		JLabel j2p2 = new JLabel("2");
+		JLabel j2p2 = new JLabel();
 		j2p2.setBackground(Color.YELLOW);
 		j2p2.setBounds(6, 191, 81, 80);
 		panel_2.add(j2p2);
 
-		JLabel j2p3 = new JLabel("3");
+		JLabel j2p3 = new JLabel();
 		j2p3.setBackground(Color.YELLOW);
 		j2p3.setBounds(6, 271, 81, 80);
 		panel_2.add(j2p3);
 
-		JLabel j2p4 = new JLabel("4");
+		JLabel j2p4 = new JLabel();
 		j2p4.setBackground(Color.YELLOW);
 		j2p4.setBounds(6, 351, 81, 80);
 		panel_2.add(j2p4);
 
-		JLabel j2p5 = new JLabel("5");
+		JLabel j2p5 = new JLabel();
 		j2p5.setBounds(6, 431, 81, 80);
 		panel_2.add(j2p5);
 
-		JLabel j2p6 = new JLabel("6");
+		JLabel j2p6 = new JLabel();
 		j2p6.setBounds(6, 513, 81, 80);
 		panel_2.add(j2p6);
 
@@ -319,48 +332,47 @@ public class TableDomino {
 		lblNomJoueur_3.setBounds(6, 6, 88, 16);
 		panel_3.add(lblNomJoueur_3);
 
-		JLabel j4p0 = new JLabel("0");
+		JLabel j4p0 = new JLabel();
 		j4p0.setBounds(6, 33, 81, 80);
 		panel_3.add(j4p0);
 
-		JLabel j4p1 = new JLabel("1");
+		JLabel j4p1 = new JLabel();
 
 		j4p1.setBounds(6, 113, 81, 80);
 		panel_3.add(j4p1);
 
-		JLabel j4p2 = new JLabel("2");
+		JLabel j4p2 = new JLabel();
 		j4p2.setBackground(Color.YELLOW);
 		j4p2.setBounds(6, 193, 81, 80);
 		panel_3.add(j4p2);
 
-		JLabel j4p3 = new JLabel("3");
+		JLabel j4p3 = new JLabel();
 		j4p3.setBackground(Color.YELLOW);
 		j4p3.setBounds(6, 273, 81, 80);
 		panel_3.add(j4p3);
 
-		JLabel j4p4 = new JLabel("4");
+		JLabel j4p4 = new JLabel();
 		j4p4.setBackground(Color.YELLOW);
 		j4p4.setBounds(6, 353, 81, 80);
 		panel_3.add(j4p4);
 
-		JLabel j4p5 = new JLabel("5");
+		JLabel j4p5 = new JLabel();
 		j4p5.setBackground(Color.YELLOW);
 		j4p5.setBounds(6, 433, 81, 80);
 		panel_3.add(j4p5);
 
-		JLabel j4p6 = new JLabel("6");
+		JLabel j4p6 = new JLabel();
 		j4p6.setBackground(Color.YELLOW);
 		j4p6.setBounds(6, 515, 81, 80);
 		panel_3.add(j4p6);
 
 		zonePieces = new JPanel();
-
+		
 		JScrollPane js = new JScrollPane();
 
 		js.setViewportView(zonePieces);
-		js.setAlignmentX(100000);
-		js.setAlignmentY(1000);
-		zonePieces.setPreferredSize(new Dimension(1000, 1000));
+		
+		zonePieces.setPreferredSize(new Dimension(Controller.tailleFenetre, Controller.tailleFenetre));
 		js.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		js.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		js.setLocation(134, 137);
