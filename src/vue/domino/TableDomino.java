@@ -1,9 +1,8 @@
-package vue;
+package vue.domino;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import controller.Controller;
-import modele.PieceDomino;
 import modele.Point;
+import modele.domino.PieceDomino;
 
 public class TableDomino {
 	private JPanel[] zonesJoueurs;

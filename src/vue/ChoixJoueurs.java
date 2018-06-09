@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import modele.Joueur;
+import modele.domino.JoueurDomino;
 
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
@@ -28,7 +28,7 @@ public class ChoixJoueurs {
 	private JCheckBox chckbxHumainP3;
 	private JCheckBox chckbxHumainP2;
 	private JCheckBox chckbxHumainP1;
-	private ArrayList<Joueur> joueurs;
+	private ArrayList<JoueurDomino> joueurs;
 
 	/**
 	 * Launch the application.
@@ -50,15 +50,15 @@ public class ChoixJoueurs {
 	 * Create the application.
 	 */
 	public ChoixJoueurs(int jeu) {
-		joueurs = new ArrayList<Joueur>();
+		joueurs = new ArrayList<JoueurDomino>();
 		initialize(jeu);
 	}
 
-	public ArrayList<Joueur> getJoueurs() {
+	public ArrayList<JoueurDomino> getJoueurs() {
 		return joueurs;
 	}
 
-	public void setJoueurs(ArrayList<Joueur> joueurs) {
+	public void setJoueurs(ArrayList<JoueurDomino> joueurs) {
 		this.joueurs = joueurs;
 	}
 
@@ -181,13 +181,13 @@ public class ChoixJoueurs {
 		frame.getContentPane().add(chckbxDesactiverP4);
 		btnValiderChoix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				joueurs.add(new Joueur(jeu, txtPlayer1.getText(), false));
-				joueurs.add(new Joueur(jeu, txtPlayer2.getText(), !chckbxHumainP2.isSelected()));
+				joueurs.add(new JoueurDomino(jeu, txtPlayer1.getText(), false));
+				joueurs.add(new JoueurDomino(jeu, txtPlayer2.getText(), !chckbxHumainP2.isSelected()));
 				if (!chckbxDesactiverP3.isSelected()) {
-					joueurs.add(new Joueur(jeu, txtPlayer3.getText(), !chckbxHumainP3.isSelected()));
+					joueurs.add(new JoueurDomino(jeu, txtPlayer3.getText(), !chckbxHumainP3.isSelected()));
 				}
 				if (!chckbxDesactiverP4.isSelected()) {
-					joueurs.add(new Joueur(jeu, txtPlayer4.getText(), !chckbxHumainP4.isSelected()));
+					joueurs.add(new JoueurDomino(jeu, txtPlayer4.getText(), !chckbxHumainP4.isSelected()));
 				}
 				frame.dispose();
 			}

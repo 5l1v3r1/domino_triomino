@@ -1,9 +1,11 @@
-package modele;
+package modele.domino;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Joueur {
+import modele.Point;
+
+public class JoueurDomino {
 	private String nom;
 	private int score;
 	private boolean cpu;
@@ -41,7 +43,7 @@ public class Joueur {
 		this.main = main;
 	}
 
-	public Joueur(int jeu, String nom, boolean cpu) {
+	public JoueurDomino(int jeu, String nom, boolean cpu) {
 		super();
 		this.nom = nom;
 		this.cpu = cpu;
@@ -94,7 +96,7 @@ public class Joueur {
 	public boolean mainVide() {
 		return (this.main.size() == 0);
 	}
-	public void ajouterExtremites(int jeu,Table table, int newX,int newY){
+	public void ajouterExtremites(int jeu,ModeleDomino table, int newX,int newY){
 		if(table.getTable()[newX+1][newY]==null){
 			table.getExtremite().add(new Point(newX+1, newY));
 		}
@@ -108,7 +110,7 @@ public class Joueur {
 			table.getExtremite().add(new Point(newX, newY-1));
 		}
 	}
-	public void supprimerExtremites(int jeu,Table table, PieceDomino piece,int oldX,int oldY,int newX,int newY){
+	public void supprimerExtremites(int jeu,ModeleDomino table, PieceDomino piece,int oldX,int oldY,int newX,int newY){
 		//ajout jeu apres
 		PieceDomino pieceTable=table.getTable()[oldX][oldY];
 		table.getExtremite().remove(new Point(newX, newY)); //le point joué est forcement supprimé
@@ -166,7 +168,7 @@ public class Joueur {
 			}
 		}
 	}
-	public Point coup(int jeu, PieceDomino piece, int indexDePieceDansLaMain, Table table, int posX, int posY,
+	public Point coup(int jeu, PieceDomino piece, int indexDePieceDansLaMain, ModeleDomino table, int posX, int posY,
 			int rotation, boolean centre, Point oldP) {
 		int x = 1, y = 1;
 		if (jeu == 0) {
@@ -285,7 +287,7 @@ public class Joueur {
 		}
 	}
 
-	public Point getPointJoueurHumain(Table table, PieceDomino piece, int posX, int posY) {
+	public Point getPointJoueurHumain(ModeleDomino table, PieceDomino piece, int posX, int posY) {
 		//
 		// int x = posX;
 		// int y = posY;
@@ -359,7 +361,7 @@ public class Joueur {
 		// return new Point(x,y);
 	}
 
-	public boolean nePeutPasJouer(int jeu, Table table) {
+	public boolean nePeutPasJouer(int jeu, ModeleDomino table) {
 		if (jeu == 0) {
 			for (Point p : table.getExtremite()) {
 				for (PieceDomino piece : this.getAllPiecesSwipes()) {

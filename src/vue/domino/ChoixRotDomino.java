@@ -1,4 +1,4 @@
-package vue;
+package vue.domino;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import modele.PieceDomino;
+import modele.domino.PieceDomino;
 
-public class ChoixRot {
+public class ChoixRotDomino {
 	private int rot;
 	private boolean centre;
 	private JFrame frame;
@@ -32,7 +32,7 @@ public class ChoixRot {
 		this.clicked = clicked;
 	}
 
-	public ChoixRot(PieceDomino piece) {
+	public ChoixRotDomino(PieceDomino piece) {
 		initialize(piece);
 	}
 

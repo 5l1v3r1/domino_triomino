@@ -1,18 +1,20 @@
-package modele;
+package modele.domino;
 
 import java.util.ArrayList;
 
-public class Table {
+import modele.Point;
+
+public class ModeleDomino {
 	private PieceDomino table[][];
 	private ArrayList<PieceDomino> deck;
-	private ArrayList<Joueur> joueurs;
+	private ArrayList<JoueurDomino> joueurs;
 	private ArrayList<Point> extremite;
 
 	public int joueurQuiCommance() {
 		int res = 0;
 		int val = 0;
 		int i = 0;
-		for (Joueur j : joueurs) {
+		for (JoueurDomino j : joueurs) {
 			if (j.valeurDuPlusGrandDouble() > val) {
 				val = j.valeurDuPlusGrandDouble();
 				res = i;
@@ -22,11 +24,11 @@ public class Table {
 		return res;
 	}
 
-	public ArrayList<Joueur> getJoueurs() {
+	public ArrayList<JoueurDomino> getJoueurs() {
 		return joueurs;
 	}
 
-	public void setJoueurs(ArrayList<Joueur> joueurs) {
+	public void setJoueurs(ArrayList<JoueurDomino> joueurs) {
 		this.joueurs = joueurs;
 	}
 
@@ -38,7 +40,7 @@ public class Table {
 		this.extremite = extremite;
 	}
 
-	public Table(int jeu, ArrayList<Joueur> joueurs) { // dom=0,tri=1
+	public ModeleDomino(int jeu, ArrayList<JoueurDomino> joueurs) { // dom=0,tri=1
 		if (jeu == 0) {
 			this.setTable(new PieceDomino[55][55]);
 			this.deck = new ArrayList<PieceDomino>();

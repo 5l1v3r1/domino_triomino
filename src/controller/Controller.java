@@ -1,20 +1,17 @@
 package controller;
 
-import java.util.HashMap;
-
-import javax.swing.JLabel;
-
-import modele.Joueur;
-import modele.PieceDomino;
 import modele.Point;
-import modele.Table;
+import modele.domino.JoueurDomino;
+import modele.domino.ModeleDomino;
+import modele.domino.PieceDomino;
 import vue.ChoixJeu;
 import vue.ChoixJoueurs;
-import vue.ChoixRot;
-import vue.TableDomino;
+import vue.domino.ChoixRotDomino;
+import vue.domino.TableDomino;
 
 public class Controller {
 	public static int tailleFenetre=4400;
+	public static int tailleFenetreTriomino=5650;
 	public static void main(String[] args) {
 		
 		Point oldPoint;
@@ -36,10 +33,10 @@ public class Controller {
 			System.err.print(""); // setup
 		}
 		System.err.println("Configuration joueurs ok");
-		Table modele = new Table(jeu, choixJoueurs.getJoueurs()); // init mains
+		ModeleDomino modele = new ModeleDomino(jeu, choixJoueurs.getJoueurs()); // init mains
 																	// et tout
 		nbJoueurs = modele.getJoueurs().size();
-		for (Joueur j : modele.getJoueurs()) {
+		for (JoueurDomino j : modele.getJoueurs()) {
 			j.initMain(modele.getDeck(), 7);
 		}
 		choixJoueurs = null; // pour le garbage collector
@@ -57,7 +54,7 @@ public class Controller {
 		}
 		joueurCourant = modele.joueurQuiCommance(); // definir le joueur ki
 													// commance
-		Joueur jCourant = modele.getJoueurs().get(joueurCourant);
+		JoueurDomino jCourant = modele.getJoueurs().get(joueurCourant);
 		System.out.println("Le joueur qui commance est " + joueurCourant);
 		tableDeJeu.setToken(joueurCourant);
 		int premierePieceAjouer = modele.getJoueurs().get(joueurCourant).indexDuPlusGrandDouble();
@@ -123,7 +120,7 @@ public class Controller {
 							+ "est desinée dans les coordonées" + coord.getX() + coord.getY());
 
 				} else { // joueur humain
-					ChoixRot choixRot;
+					ChoixRotDomino choixRot;
 					Point pointHumain;
 					do {
 
@@ -138,7 +135,7 @@ public class Controller {
 						System.out.println("Le joueur a choisi la piece dont l'indice est "
 								+ tableDeJeu.getChoixJoueur(joueurCourant));
 
-						choixRot = new ChoixRot(jCourant.getMain().get(tableDeJeu.getChoixJoueur(joueurCourant)));
+						choixRot = new ChoixRotDomino(jCourant.getMain().get(tableDeJeu.getChoixJoueur(joueurCourant)));
 						System.out.println("Attente du choix de la rotation de la piece");
 						while (choixRot.isClicked() == false) {
 							System.out.print(""); // choix rot

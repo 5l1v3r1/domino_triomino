@@ -1,5 +1,7 @@
-package modele;
+package modele.domino;
 import java.util.ArrayList;
+
+import modele.Piece;
 
 public class PieceDomino extends Piece {
 	private int rot; // 1 pour verticale 0 pour horizentale
