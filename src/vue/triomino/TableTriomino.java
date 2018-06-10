@@ -25,14 +25,7 @@ public class TableTriomino {
 	private JPanel[] zonesJoueurs;
 	private JLabel[] nomJoueurs;
 	private JFrame frame;
-	public JFrame getFrame() {
-		return frame;
-	}
-
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-
+	
 	private JPanel zonePieces;
 	private VuePieceTriomino zonePiecesJoueurs[][]; // zone des main de jr
 	private int choixJoueur[];
@@ -47,7 +40,38 @@ public class TableTriomino {
 	private JButton j1p0;
 	private JButton j2p0;
 	private JButton j3p0;
+	private JLabel scoreJ3;
+	private JLabel scoreJ2;
+	private JLabel scoreJ4;
+	private JLabel scoreJ1;
 
+	
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	public void setScoreJoueur(int numJoueur,int score){
+		switch (numJoueur) {
+		case 0:
+			scoreJ1.setText(String.valueOf(score));
+			break;
+		case 1:
+			scoreJ2.setText(String.valueOf(score));
+			break;
+		case 2:
+			scoreJ3.setText(String.valueOf(score));
+			break;
+		case 3:
+			scoreJ4.setText(String.valueOf(score));
+			break;
+		default:
+			break;
+		}
+	}
 	public JButton getBoutonPiocher(int indexJoueur) {
 		switch (indexJoueur) {
 		case 0:
@@ -190,14 +214,14 @@ public class TableTriomino {
 		this.zonePieces.repaint();
 	}
 
-	public void dessinerPlacesExtremites(ArrayList<Point> ext) {
-
-		for (Point p : ext) {
-			this.getTable()[p.getX()][p.getY()].getPiece().changerPiece(new PieceTriomino(7, 0, 0));
-				
-			}
-		}
-	
+//	public void dessinerPlacesExtremites(ArrayList<Point> ext) {
+//
+//		for (Point p : ext) {
+//			this.getTable()[p.getX()][p.getY()].getPiece().changerPiece(new PieceTriomino(7, 0, 0));
+//				
+//			}
+//		}
+//	
 
 	public static Point convertIJtoXY(int i, int j) {
 
@@ -282,6 +306,10 @@ public class TableTriomino {
 		tokenJ3 = new JLabel("Token");
 		tokenJ3.setBounds(94, 0, 49, 26);
 		panel.add(tokenJ3);
+		
+		scoreJ3 = new JLabel("0");
+		scoreJ3.setBounds(145, 6, 61, 16);
+		panel.add(scoreJ3);
 
 		j3p1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -320,6 +348,10 @@ public class TableTriomino {
 		tokenJ1 = new JLabel("Token");
 		tokenJ1.setBounds(105, 1, 49, 26);
 		panel_1.add(tokenJ1);
+		
+		scoreJ1 = new JLabel("0");
+		scoreJ1.setBounds(154, 6, 61, 16);
+		panel_1.add(scoreJ1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -341,7 +373,7 @@ public class TableTriomino {
 		j2p0 = new JButton();
 		j2p0.setText("Piocher");
 
-		j2p0.setBounds(6, 50, 67, 80);
+		j2p0.setBounds(6, 64, 67, 80);
 		panel_2.add(j2p0);
 
 		for (int i = 0; i < 30; i++) {
@@ -352,6 +384,10 @@ public class TableTriomino {
 		tokenJ2 = new JLabel("Token");
 		tokenJ2.setBounds(6, 26, 49, 26);
 		panel_2.add(tokenJ2);
+		
+		scoreJ2 = new JLabel("0");
+		scoreJ2.setBounds(6, 47, 61, 16);
+		panel_2.add(scoreJ2);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -373,7 +409,7 @@ public class TableTriomino {
 
 		j4p0 = new JButton();
 		j4p0.setText("Piocher");
-		j4p0.setBounds(6, 55, 50, 80);
+		j4p0.setBounds(6, 69, 67, 80);
 		panel_3.add(j4p0);
 
 		for (int i = 0; i < 30; i++) {
@@ -384,6 +420,10 @@ public class TableTriomino {
 		tokenJ4 = new JLabel("Token");
 		tokenJ4.setBounds(6, 28, 49, 26);
 		panel_3.add(tokenJ4);
+		
+		scoreJ4 = new JLabel("0");
+		scoreJ4.setBounds(6, 52, 61, 16);
+		panel_3.add(scoreJ4);
 
 		zonePieces = new JPanel();
 
