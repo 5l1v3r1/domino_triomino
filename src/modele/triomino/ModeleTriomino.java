@@ -55,31 +55,55 @@ public class ModeleTriomino {
 		int direction = ModeleTriomino.getDirection(p.getX(), p.getY()); // la variable direction bch t9olek sommet lfou9 wala louta ( 0 maaneha louta )
 		int x=p.getX();
 		int y=p.getY();
+//		System.out.println("directinon ="+direction);
+//
+//		System.out.println("X ="+piece.getX());
+//		System.out.println("Y ="+piece.getY());
+//		System.out.println("Z ="+piece.getZ());
+//	
 		if(direction==0){//sommet en bas
-			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getX()==piece.getX() && this.getTable()[x-1][y].getZ()==piece.getZ()));
-			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x+1][y]!=null&&this.getTable()[x+1][y].getY()==piece.getY()));
-			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getX()==piece.getY() && this.getTable()[x][y+1].getY()==piece.getZ()));
-			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1]!=null&& this.getTable()[x][y-1].getZ()==piece.getY() && this.getTable()[x][y-1].getY()==piece.getX()));
-			return (haut && bas && gauche && droite);
+			boolean pieceJoueEnBas=(this.getTable()[x-1][y]!=null && piece.getZ()==this.getTable()[x-1][y].getX() && piece.getX()==this.getTable()[x-1][y].getZ());
+			boolean pieceJoueADroite=(this.getTable()[x][y+1]!=null && piece.getX()==this.getTable()[x][y+1].getY() && piece.getY()==this.getTable()[x][y+1].getX()) ;
+			boolean pieceJouerAGauche=(this.getTable()[x][y-1]!=null && piece.getZ()==this.getTable()[x][y-1].getY() && piece.getY()==this.getTable()[x][y-1].getZ());
+		//	return pieceJoueEnBas || pieceJoueADroite || pieceJouerAGauche ;
+			return (pieceJoueADroite && pieceJouerAGauche && this.getTable()[x-1][y]==null ) 
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && this.getTable()[x-1][y]==null ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null && this.getTable()[x-1][y]==null)
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && pieceJoueEnBas ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null &&pieceJoueEnBas )
+					|| ( pieceJoueEnBas && this.getTable()[x][y+1]==null && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnBas && pieceJoueADroite && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnBas && pieceJouerAGauche && this.getTable()[x][y+1]==null ) 
+					||  ( pieceJoueEnBas && pieceJouerAGauche && pieceJoueADroite ) ;
+			
 		}else {//sommet en haut
-			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getY()==piece.getY()));
-			boolean bas=(this.getTable()[x+1][y]==null || (this.getTable()[x+1][y]!=null && this.getTable()[x+1][y].getX()==piece.getX() &&  this.getTable()[x+1][y].getZ()==piece.getZ()));
-			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getY()==piece.getZ() && this.getTable()[x][y+1].getX()==piece.getY()));
-			boolean gauche=(this.getTable()[x][y-1]==null || (this.getTable()[x][y-1]!=null && this.getTable()[x][y-1].getY()==piece.getX() && this.getTable()[x][y-1].getZ()==piece.getY()));
-			return (haut && bas && gauche && droite);
+			boolean pieceJoueEnHaut=(this.getTable()[x+1][y]!=null && piece.getX()==this.getTable()[x+1][y].getZ() && piece.getZ()==this.getTable()[x+1][y].getX());
+			boolean pieceJoueADroite=(this.getTable()[x][y+1]!=null && piece.getZ()==this.getTable()[x][y+1].getY() && piece.getY()==this.getTable()[x][y+1].getZ());
+			boolean pieceJouerAGauche=(this.getTable()[x][y-1]!=null && piece.getX()==this.getTable()[x][y-1].getY() && piece.getY()==this.getTable()[x][y-1].getX());
+			//return pieceJoueEnHaut || pieceJoueADroite || pieceJouerAGauche;
+			return (pieceJoueADroite && pieceJouerAGauche && this.getTable()[x+1][y]==null ) 
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && this.getTable()[x+1][y]==null ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null && this.getTable()[x+1][y]==null)
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && pieceJoueEnHaut ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null && pieceJoueEnHaut )
+					|| ( pieceJoueEnHaut && this.getTable()[x][y+1]==null && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnHaut && pieceJoueADroite && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnHaut && pieceJouerAGauche && this.getTable()[x][y+1]==null ) 
+					||  ( pieceJoueEnHaut && pieceJouerAGauche && pieceJoueADroite ) ;
 		}
 	}
 
 	public void initDeck(int jeu) {
-		
+		deck=new ArrayList<PieceTriomino>();
 			for (int i = 0; i < 6; i++) {
 				for (int j = i; j < 6; j++) {
 					for( int k=j; k<6;k++){
 					deck.add(new PieceTriomino(i, j,k));
+				
 					}
 				}
 			}
-		
+	
 	}
 
 	public ArrayList<PieceTriomino> getDeck() {
@@ -105,10 +129,10 @@ public class ModeleTriomino {
 		this.getDeck().remove(0);
 		return true;
 	}
-	public int finPartie(int jeu) { // retourne l'id du joueurs ganant 5 sinon a changer plus tard
+	public int finPartie(int jeu) { // retourne l'id du joueurs ganant 5 sinon // plutart il faut traiter le cas de l'egalité
 		
-			int min = 56;
-			int minId = 5;
+			int max = joueurs.get(0).getScore();
+			int maxId = 0;
 			
 			boolean fin = true;
 			for (int i = 0; i < joueurs.size(); i++) {
@@ -116,16 +140,16 @@ public class ModeleTriomino {
 				if (joueurs.get(i).mainVide()) {
 					return i;
 				} else {
-					if (joueurs.get(i).getMain().size() < min) {
-						min = joueurs.get(i).getMain().size();
-						minId = i;
+					if (joueurs.get(i).getScore() > max) {
+						max = joueurs.get(i).getMain().size();
+						maxId = i;
 				
 					}
-					fin = fin && joueurs.get(i).nePeutPasJouer(jeu, this);
+					fin = fin && joueurs.get(i).nePeutPasJouer(jeu, this) && joueurs.get(i).getNombreDePioches() >=3; 
 				}
 			}
 			if (fin == true) {
-				return minId;
+				return maxId;
 			} else {
 				return 5;
 			}
@@ -203,11 +227,10 @@ public class ModeleTriomino {
 				}
 		}
 		if(nbMax==1){
-			System.out.println("non egalite "+resultat +"commance");
 			return resultat;
 			
 		}else{
-			System.out.println("egalite");
+		
 			return 4;
 		}
 	}

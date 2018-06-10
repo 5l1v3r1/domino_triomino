@@ -61,25 +61,25 @@ public class TableDomino {
 	public void setToken(int i) {
 		switch (i) {
 		case 0:
-			tokenJ1.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ1.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ2.setIcon(null);
 			tokenJ3.setIcon(null);
 			tokenJ4.setIcon(null);
 			break;
 		case 1:
-			tokenJ2.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ2.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ1.setIcon(null);
 			tokenJ3.setIcon(null);
 			tokenJ4.setIcon(null);
 			break;
 		case 2:
-			tokenJ3.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ3.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ2.setIcon(null);
 			tokenJ1.setIcon(null);
 			tokenJ4.setIcon(null);
 			break;
 		case 3:
-			tokenJ4.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ4.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ2.setIcon(null);
 			tokenJ3.setIcon(null);
 			tokenJ1.setIcon(null);
@@ -135,7 +135,7 @@ public class TableDomino {
 
 	public static String recuprerCheminPiece(PieceDomino piece) {
 		String res = new String();
-		res = "/Users/s-man/Desktop/images/";
+		res = "images/";
 		res += String.valueOf(piece.getRot()) + String.valueOf(piece.getX()) + String.valueOf(piece.getY());
 		res += ".png";
 		return res;
@@ -655,5 +655,13 @@ public class TableDomino {
 	public void setTable(Point table[][]) {
 		this.table = table;
 	}
+
+	public void exit() {
+		this.frame.setVisible(false);
+		this.frame.dispose();
+		
+	}
+
+	 
 
 }

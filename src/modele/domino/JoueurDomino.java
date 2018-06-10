@@ -3,37 +3,14 @@ package modele.domino;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import modele.Joueur;
 import modele.Point;
 
-public class JoueurDomino {
-	private String nom;
-	private int score;
-	private boolean cpu;
+public class JoueurDomino extends Joueur{
+	
 	private ArrayList<PieceDomino> main;
 
-	public String getNom() {
-		return nom;
-	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public boolean isCpu() {
-		return cpu;
-	}
-
-	public void setCpu(boolean cpu) {
-		this.cpu = cpu;
-	}
 
 	public ArrayList<PieceDomino> getMain() {
 		return main;
@@ -44,11 +21,9 @@ public class JoueurDomino {
 	}
 
 	public JoueurDomino(int jeu, String nom, boolean cpu) {
-		super();
-		this.nom = nom;
-		this.cpu = cpu;
-		this.score = 0;
-		if (jeu == 0)
+		super(nom,0,cpu);
+		
+		
 			this.main = new ArrayList<PieceDomino>();
 	}
 
