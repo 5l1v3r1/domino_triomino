@@ -55,18 +55,28 @@ public class ModeleTriomino {
 		int direction = ModeleTriomino.getDirection(p.getX(), p.getY()); // la variable direction bch t9olek sommet lfou9 wala louta ( 0 maaneha louta )
 		int x=p.getX();
 		int y=p.getY();
+		System.out.println(direction);
+		System.out.println("***");
 		if(direction==0){//sommet en bas
-			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getX()==piece.getX() && this.getTable()[x-1][y].getZ()==piece.getZ()));
-			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x+1][y]!=null&&this.getTable()[x+1][y].getY()==piece.getY()));
-			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getX()==piece.getY() && this.getTable()[x][y+1].getY()==piece.getZ()));
-			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1]!=null&& this.getTable()[x][y-1].getZ()==piece.getY() && this.getTable()[x][y-1].getY()==piece.getX()));
-			return (haut && bas && gauche && droite ||true);
+//			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getX()==piece.getY() && this.getTable()[x-1][y].getZ()==piece.getZ()));
+//			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x+1][y]!=null&&this.getTable()[x+1][y].getY()==piece.getX()));
+//			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getX()==piece.getX() && this.getTable()[x][y+1].getY()==piece.getZ()));
+//			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1]!=null&& this.getTable()[x][y-1].getZ()==piece.getX() && this.getTable()[x][y-1].getY()==piece.getY()));
+//			return (haut && bas && gauche && droite || true);
+			boolean pieceJoueEnBas=(this.getTable()[x-1][y]!=null && piece.getX()==this.getTable()[x-1][y].getX() && piece.getZ()==this.getTable()[x-1][y].getZ());
+			boolean pieceJoueADroite=(this.getTable()[x][y+1]!=null && piece.getX()==this.getTable()[x][y+1].getY() && piece.getY()==this.getTable()[x][y+1].getZ());
+			boolean pieceJouerAGauche=(this.getTable()[x][y-1]!=null && piece.getZ()==this.getTable()[x][y-1].getY() && piece.getY()==this.getTable()[x][y-1].getX());
+			return pieceJoueEnBas || pieceJoueADroite || pieceJouerAGauche ||true;
 		}else {//sommet en haut
-			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getY()==piece.getY()));
-			boolean bas=(this.getTable()[x+1][y]==null || (this.getTable()[x+1][y]!=null && this.getTable()[x+1][y].getX()==piece.getX() &&  this.getTable()[x+1][y].getZ()==piece.getZ()));
-			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getY()==piece.getZ() && this.getTable()[x][y+1].getX()==piece.getY()));
-			boolean gauche=(this.getTable()[x][y-1]==null || (this.getTable()[x][y-1]!=null && this.getTable()[x][y-1].getY()==piece.getX() && this.getTable()[x][y-1].getZ()==piece.getY()));
-			return (haut && bas && gauche && droite ||true);
+//			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getY()==piece.getY()));
+//			boolean bas=(this.getTable()[x+1][y]==null || (this.getTable()[x+1][y]!=null && this.getTable()[x+1][y].getX()==piece.getX() &&  this.getTable()[x+1][y].getZ()==piece.getZ()));
+//			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getY()==piece.getZ() && this.getTable()[x][y+1].getX()==piece.getY()));
+//			boolean gauche=(this.getTable()[x][y-1]==null || (this.getTable()[x][y-1]!=null && this.getTable()[x][y-1].getY()==piece.getX() && this.getTable()[x][y-1].getZ()==piece.getY()));
+//			return (haut && bas && gauche && droite || true);
+			boolean pieceJoueEnHaut=(this.getTable()[x+1][y]!=null && piece.getX()==this.getTable()[x+1][y].getZ() && piece.getZ()==this.getTable()[x+1][y].getX());
+			boolean pieceJoueADroite=(this.getTable()[x][y+1]!=null && piece.getX()==this.getTable()[x][y+1].getY() && piece.getY()==this.getTable()[x][y+1].getX());
+			boolean pieceJouerAGauche=(this.getTable()[x][y-1]!=null && piece.getZ()==this.getTable()[x][y-1].getY() && piece.getY()==this.getTable()[x][y-1].getZ());
+			return pieceJoueEnHaut || pieceJoueADroite || pieceJouerAGauche||true;
 		}
 	}
 

@@ -21,18 +21,33 @@ import vue.triomino.TableTriomino;
 public class Controller {
 	public static int tailleFenetre = 4400;
 	public static int tailleFenetreTriomino = 5650;
+	// Cette variable m'as servie pour la phase de test , je vais voir si je
+	// vais la supprimer
 	public static int i;
-	public static boolean piocheOk = false; // voir si le bouton pioche a ete
-											// utilise
+	// ces deux variable vont probablement etre deplacées dans une classe de Vue
+	// pour triomino
+	public static boolean piocheOk = false;
+	// piocheOk permet de sortir de la boucle d'attente quand l'utilisateur
+	// pioche ( dans le debut pour determiner qui commance)
 	private static boolean partieCommance = false;
 
+	// le Listner des boutons pioches (triomino) doit avoir 2 fonctions , soit
+	// il est utilisé au debut pour determiner le joueur qui commance soit au
+	// cours du jeu la variable partieCommance permet de determiner quel
+	// reaction doit avoir le bouton ( voir les lisnters pour bien comprendre )
 	private static Point getCoord(Point[][] table, int x, int y) {
-		return table[x][y];
+		// Cette methode est inutile je vais sans doute la remplacer par une
+		// affectation dans la partie domino dans ce controller
 
+		return table[x][y];
 	}
 
 	private static Point getOffset(Point[][] table, PieceDomino piece, PieceDomino oldPiece, int x, int y, int newX,
 			int newY) {
+		// Cette methode permet de calculer la position de la piece domino ,
+		// elle
+		// sera deplacée dans la vue du domino apres l'avoir bien testé ( elle
+		// marche bien a priori )
 
 		Point oldPoint = table[x][y];
 		Point newPoint = new Point(oldPoint.getX(), oldPoint.getY());
@@ -103,7 +118,7 @@ public class Controller {
 				} else if (piece.getX() == oldPiece.getY() && newX == x + 1) {
 					newPoint.setX(oldPoint.getX() - 20);
 					newPoint.setY(oldPoint.getY() + 80);
-				} //
+				}
 
 			} else {
 				if (piece.getX() == oldPiece.getY()) {
@@ -132,50 +147,79 @@ public class Controller {
 		int nbJoueurs = 0;
 		int jeu;
 		int joueurCourant;
-		ChoixJeu choixJeu = new ChoixJeu(); // choixJeu (tri/dom)
+		ChoixJeu choixJeu = new ChoixJeu();
+		// choixJeu est une interface graphique qui va demander a l'utilsateur
+		// de choisir le jeu ( dom/tri)
 		System.err.println("Attente choix du jeu");
 		do {
 			jeu = choixJeu.getChoix();
 			System.err.print(""); // choix jeu
 		} while (jeu == -1);
+		// Tant que l'utilisateur n'as pas choisi le jeu ( valeur par defaut de
+		// choixJeu.getChoix() ==-1) on attend
 		System.err.println("Choix jeu ok");
+		// Apres etre sorti de la boucle le choix du jeu a ete forcement fait
 		choixJeu.exit();
-		choixJeu = null; // pour le garbage collector
-		ChoixJoueurs choixJoueurs = new ChoixJoueurs(jeu); // config joueurs (
-		System.err.println("Attente configuration joueurs"); // noms , cpu ... )
+		// On quitte la fenetre choixJeu
+		choixJeu = null;
+		// pour le garbage collector
+		ChoixJoueurs choixJoueurs = new ChoixJoueurs(jeu);
+		// Cette Fenetre ser a configurer les joueurs , choisir les nom ,
+		// determiner qui serons les CPU et les Humains ,et choisir le nombre de
+		// joueurs
+		System.err.println("Attente configuration joueurs");
 		while (choixJoueurs.getJoueurs().size() == 0) {
 			System.err.print(""); // setup
 		}
 		System.err.println("Configuration joueurs ok");
+		// Ici les joueurs on ete bien configurés
+
 		if (jeu == 0) {
-			ModeleDomino modele = new ModeleDomino(jeu, choixJoueurs.getJoueurs()); // init
-																					// mains
-			// et tout
+			ModeleDomino modele = new ModeleDomino(jeu, choixJoueurs.getJoueurs());
+			// Creation d'une instance du modele du jeu domino
 			nbJoueurs = modele.getJoueurs().size();
+			// Cette variable contients le nombe de joueurs pour les
+			// initialisations
 			for (JoueurDomino j : modele.getJoueurs()) {
 				j.initMain(modele.getDeck(), 7);
+				// Ici pour chaque joueurs on pioche 7 piece de domino au hasard
+				// et on les enleve de la pioche
 			}
-			choixJoueurs = null; // pour le garbage collector
-			TableDomino tableDeJeu = new TableDomino(); // init table de jeu (
-														// pieces et noms )
+			choixJoueurs = null;
+			// Pour le garbage collector
+			TableDomino tableDeJeu = new TableDomino();
+			// TableDomino est la classe qui contiens la vue principale du jeu
+			// domino
 			int i;
 			for (i = 0; i < nbJoueurs; i++) {
-				tableDeJeu.setNomJoueur(i, modele.getJoueurs().get(i).getNom()); // init
-																					// noms
-				tableDeJeu.dessinerPiecesJoueur(i, modele.getJoueurs().get(i).getMain()); // init
-																							// main
+				tableDeJeu.setNomJoueur(i, modele.getJoueurs().get(i).getNom());
+				// Pour chaque iteration on fait une mise a jour du JLabel
+				// destiné au nom de joueur
+				tableDeJeu.dessinerPiecesJoueur(i, modele.getJoueurs().get(i).getMain());
+				// Pour chaque joueur on affiche la main initalisée plus tot
 			}
 			for (; i < 4; i++) {
-				tableDeJeu.setNomJoueur(i, ""); // init labels des noms vides
+				tableDeJeu.setNomJoueur(i, "");
+				// Si on joue a moin de 4 joueurs , les labels des nom des
+				// joueurs desactivés doivent etre vides
 			}
-			joueurCourant = modele.joueurQuiCommance(); // definir le joueur ki
-														// commance
+			joueurCourant = modele.joueurQuiCommance();
+			// Parmi les methodes du modele il ya joueurQuiCommance() qui permet
+			// de determiner le joueur qui a le double avec la valeur maximum la
+			// methode renvoie l'index du joueur dans la liste qui est un
+			// attibut du modele
 			JoueurDomino jCourant = modele.getJoueurs().get(joueurCourant);
+			// On stocke a chaque fois une reference du joueur courant pour
+			// acceder facilement a ces methodes et ne pas compliquer le code
 			System.out.println("Le joueur qui commance est " + joueurCourant);
 			tableDeJeu.setToken(joueurCourant);
+			// Quand le tour d'un joueur arrive on lui donne le jeton pour
+			// differencier qui est le joueur courant dans la vue
 			int premierePieceAjouer = modele.getJoueurs().get(joueurCourant).indexDuPlusGrandDouble();
 			tableDeJeu.dessinerPiece(jCourant.getMain().get(premierePieceAjouer), tailleFenetre / 2, tailleFenetre / 2,
 					28, 28);
+			// premierePieceAjouer contient l'index du plus grand double du
+			// joueur qui commance
 			modele.getTable()[28][28] = jCourant.getMain().get(premierePieceAjouer);
 			modele.getTable()[28][28].setCentre(true);
 			tableDeJeu.getTable()[28][28] = new Point(tailleFenetre / 2, tailleFenetre / 2);
@@ -185,37 +229,57 @@ public class Controller {
 			modele.getExtremite().add(new Point(28, 27));
 			modele.getExtremite().add(new Point(27, 28));
 			modele.getExtremite().add(new Point(29, 28));
+			// Ainsi on a poser ce double au milieu
 			joueurCourant = (joueurCourant + 1) % nbJoueurs;
 			jCourant = modele.getJoueurs().get(joueurCourant);
 			tableDeJeu.setToken(joueurCourant);
+			// Apres avoir fait le premier tour on va entrer dans la boucle du
+			// jeux
+			// Debut de la partie
 			while (modele.finPartie(jeu) == 5) {
+				// La methode finPartie renvoie le numero de joueur gangant si
+				// la partie et finie et renvoie la valeur 5 sinon ( c'est un
+				// choix 5 c'est pas une deduction )
 
 				System.out.println("Partie non terminée c'est le tour du joueur " + joueurCourant);
-				// jeu
+
 				Point point;
-				if (jCourant.nePeutPasJouer(jeu, modele)) { // si le joueur ne
-															// peut
-															// pas jouer il
-															// passe
-															// son tour
-															// automatiquement
+				if (jCourant.nePeutPasJouer(jeu, modele)) {
+					// Si le joueur courant ne peut pas jouer ( variante sans
+					// pioche ) on va sauter le else et passer directement au
+					// joueur suivant
 					System.err.println("Le joueur " + joueurCourant + " passe son tour");
 				} else {
-					if (jCourant.isCpu()) { // joueur ordinateur
+					if (jCourant.isCpu()) {
+						// Dans ce bloc c'est un joueur CPU qui est le joueur
+						// courant
+
 						System.out.println("C'est le tour du joueur cpu " + joueurCourant);
 						Point oldP = new Point(0, 0);
+						// oldP est un objet de Type Point qui va contenir les
+						// coordonees de la piece que le joueur a utilisé pour
+						// coller sa piece
 						point = jCourant.coup(jeu, null, 0, modele, 0, 0, 0, false, oldP);
+						// Le joueur courant cpu va faire son coup ( la plupart
+						// des valeurs son a 0 ou nulles car il n'as pas besoin
+						// de parametres pour jouer puisqu'il n'est pas humain )
+
 						int x = oldP.getX();
 						int y = oldP.getY();
 						PieceDomino oldPiece = modele.getTable()[x][y];
 						tableDeJeu.getTable()[point.getX()][point.getY()] = Controller.getOffset(tableDeJeu.getTable(),
 								modele.getTable()[point.getX()][point.getY()], oldPiece, x, y, point.getX(),
 								point.getY());
+						// L'attribut table de tableDeJeu ( la vue ) est une
+						// matrice parallele a celle du modele mais qui contient
+						// les coordonees de la piece dans le terrain de jeu
+/* wsolt lil houni bil com mriglin w ken fil classe hethi */
 						Point coord = Controller.getCoord(tableDeJeu.getTable(), point.getX(), point.getY());
 						System.out.println("Le joueur a poser la piece " + modele.getTable()[point.getX()][point.getY()]
 								+ " dans : x=" + point.getX() + ", y=" + point.getY());
 						tableDeJeu.dessinerPiece(modele.getTable()[point.getX()][point.getY()], coord.getX(),
 								coord.getY(), point.getX(), point.getY());
+						// Ici on dessine la piece jouée par le cpu
 						System.out.println("La piece" + modele.getTable()[point.getX()][point.getY()]
 								+ "est desinée dans les coordonées" + coord.getX() + coord.getY());
 
@@ -300,6 +364,8 @@ public class Controller {
 			modeleTriomino.initDeck(jeu);
 			nbJoueurs = modeleTriomino.getJoueurs().size();
 			TableTriomino tableTriomino = new TableTriomino();
+			tableTriomino.getFrame().setVisible(true);
+
 			tableTriomino.setQuiPeutPiocher(5, new JoueurTriomino(jeu, "", true), modeleTriomino.getDeck());
 			// desactiver// toutes// les// pioches
 			for (int i = 0; i < nbJoueurs; i++) { // init noms
@@ -413,7 +479,7 @@ public class Controller {
 										modeleTriomino.getJoueurs().get(3)
 												.setScore(modeleTriomino.getJoueurs().get(3).getScore() - 10);
 									}
-									tableTriomino.dessinerPiecesJoueur(2, modeleTriomino.getJoueurs().get(2).getMain());
+									tableTriomino.dessinerPiecesJoueur(3, modeleTriomino.getJoueurs().get(3).getMain());
 
 								}
 
@@ -503,8 +569,8 @@ public class Controller {
 
 				}
 
-				System.out.println(
-						"Le joueur a choisi la piece dont l'indice est " + tableTriomino.getChoixJoueur(joueurCourant));
+				System.err.println("Le joueur a choisi la piece "
+						+ jCourant.getMain().get(tableTriomino.getChoixJoueur(joueurCourant)));
 
 				ChoixRotTriomino choixRotTriomino = new ChoixRotTriomino(
 						jCourant.getMain().get(tableTriomino.getChoixJoueur(joueurCourant)));
@@ -512,6 +578,8 @@ public class Controller {
 				while (choixRotTriomino.isClicked() == false) {
 					System.out.print(""); // choix rot
 				}
+				System.err.println("La piece choisie apres rotation "
+						+ jCourant.getMain().get(tableTriomino.getChoixJoueur(joueurCourant)));
 
 				System.out.println("choix de la rotation de la piece effectué");
 				modeleTriomino.getTable()[57][57] = jCourant.getMain().get(tableTriomino.getChoixJoueur(joueurCourant));
@@ -519,10 +587,11 @@ public class Controller {
 			}
 			jCourant.ajouterExtremites(1, modeleTriomino, 57, 57);
 			///////////
-			//tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
+			// tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
 			///////////
 			tableTriomino.dessinerPiecesJoueur(joueurCourant, modeleTriomino.getJoueurs().get(joueurCourant).getMain());
-			//tableTriomino.dessinerPiece(modeleTriomino.getTable()[57][57], 57, 57);
+			// tableTriomino.dessinerPiece(modeleTriomino.getTable()[57][57],
+			// 57, 57);
 			tableTriomino.getTable()[57][57].getPiece().changerPiece(modeleTriomino.getTable()[57][57]);
 			joueurCourant = (joueurCourant + 1) % nbJoueurs;
 			jCourant = modeleTriomino.getJoueurs().get(joueurCourant);
@@ -571,18 +640,15 @@ public class Controller {
 						// le joueur passe son tour
 					} else { // le joueur peut jouer
 						pointJoue = jCourant.coup(0, null, 0, modeleTriomino, 0, 0, extre);
-					
-					
+
 						tableTriomino.getTable()[pointJoue.getX()][pointJoue.getY()].getPiece()
 								.changerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()]);
 						/////////
-						//tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
-						
-					
+						// tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
 
 						tableTriomino.dessinerPiecesJoueur(joueurCourant,
 								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
-					
+
 						// coup cpu
 					}
 				} else {// joueur humain
@@ -635,21 +701,22 @@ public class Controller {
 					if (pointJoue.getX() == -1) {
 						// le joueur a passé son tour
 					} else {
-					
+
 						System.out.println(tableTriomino.getTable()[pointJoue.getX()][pointJoue.getY()]);
 						tableTriomino.getTable()[pointJoue.getX()][pointJoue.getY()].getPiece()
 								.changerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()]);
-					/////////	tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
-					
+						////////
+						// tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
+
 						tableTriomino.dessinerPiecesJoueur(joueurCourant,
 								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
-					
+
 					}
 					tableTriomino.resetChoix();
 					tableTriomino.resetPieceChoisie();
 
 				} // fin humain
-				
+
 				// tableTriomino.dessinerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()],
 				// pointJoue.getX(), pointJoue.getY());
 

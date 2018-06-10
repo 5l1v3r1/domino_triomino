@@ -25,6 +25,14 @@ public class TableTriomino {
 	private JPanel[] zonesJoueurs;
 	private JLabel[] nomJoueurs;
 	private JFrame frame;
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
 	private JPanel zonePieces;
 	private VuePieceTriomino zonePiecesJoueurs[][]; // zone des main de jr
 	private int choixJoueur[];
@@ -69,6 +77,7 @@ public class TableTriomino {
 				try {
 					TableTriomino window = new TableTriomino();
 					window.getTable();
+					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -184,25 +193,11 @@ public class TableTriomino {
 	public void dessinerPlacesExtremites(ArrayList<Point> ext) {
 
 		for (Point p : ext) {
-			int x = TableTriomino.convertIJtoXY(p.getX(), p.getY()).getX();
-			int y = TableTriomino.convertIJtoXY(p.getX(), p.getY()).getY();
-			if (table[p.getX()][p.getY()] == null) {
-				
-				VuePieceTriomino pi = new VuePieceTriomino(new PieceTriomino(7, 0, 0), x, y,ModeleTriomino.getDirection(p.getX(), p.getY()));
-				table[p.getX()][p.getY()] = pi;
-				table[p.getX()][p.getY()].getPiece().addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						setPieceChoisie(new Point(p.getX(), p.getY()));
-
-					}
-				});
-				this.zonePieces.add(pi);
-				pi.repaint();
+			this.getTable()[p.getX()][p.getY()].getPiece().changerPiece(new PieceTriomino(7, 0, 0));
 				
 			}
 		}
-	}
+	
 
 	public static Point convertIJtoXY(int i, int j) {
 
@@ -406,13 +401,14 @@ public class TableTriomino {
 		zonePieces.setLayout(null);
 		frame.getContentPane().add(js);
 
-		frame.setVisible(true);
+	
 		for(int i=0;i<113;i++){
 			for(int j=0;j<113;j++){
 			
 				dessinerPieceTerrain(table,i,j);
 			}
 		}
+		
 	}
 
 	private void dessinerPieceTerrain(VuePieceTriomino[][] table, int i, int j) {
@@ -423,9 +419,10 @@ public class TableTriomino {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setPieceChoisie(new Point(i, j));
-				System.out.println(i+" "+j);
+			
 			}
 		});
+		
 		zonePieces.add(table[i][j]);
 		
 	}

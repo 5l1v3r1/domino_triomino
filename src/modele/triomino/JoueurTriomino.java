@@ -104,11 +104,14 @@ public class JoueurTriomino {
 	}
 	public ArrayList<Point> ajouterExtremites(int jeu,ModeleTriomino table, int newX,int newY){
 	
-		int direction=ModeleTriomino.getDirection(newY, newY);
-		System.out.println("direction de la piece joue = "+direction);
+		
+	
 		ArrayList<Point> resultat=new ArrayList<Point>();
 		int x=newX;
 		int y=newY;
+		int direction=ModeleTriomino.getDirection(x, y);
+		
+		
 		if(table.getTable()[x][y+1]==null){
 			
 			table.getExtremite().add(new Point(x, y+1));
@@ -119,20 +122,20 @@ public class JoueurTriomino {
 			table.getExtremite().add(new Point(x, y-1));
 			resultat.add(new Point(x, y-1));
 		}
-		if(direction==1){
+		
 			
-			if(table.getTable()[x+1][y]==null){
+			if(table.getTable()[x+1][y]==null && direction==1){
+			
 				table.getExtremite().add(new Point(x+1, y));
 				resultat.add(new Point(x+1, y));
 			}
-		}
-		if(direction==0){
+		
+	
 			
-			if(table.getTable()[x-1][y]==null){
+			if(table.getTable()[x-1][y]==null && direction==0){
 				table.getExtremite().add(new Point(x-1, y));
 				resultat.add(new Point(x-1, y));
 			}
-		}
 		
 		
 		return resultat;
