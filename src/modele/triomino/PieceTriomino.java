@@ -42,4 +42,10 @@ public class PieceTriomino extends Piece {
 		resultat.add(new PieceTriomino(this.getY(), this.getZ(), this.getX()));
 		return resultat;
 	}
+
+	@Override
+	public String toString() {
+		return "PieceTriomino [ "+super.toString()+" z=" + z + "]";
+	}
+	
 }

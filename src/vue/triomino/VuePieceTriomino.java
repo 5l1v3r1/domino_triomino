@@ -23,7 +23,7 @@ public class VuePieceTriomino extends JPanel {
 		this.setOpaque(false);
 		this.setLayout(new GridLayout(1, 1));
 		this.piece = new LabelPieceTriomino(direction, 0, 0, piece);
-		this.setBounds(posX, posY, 50, 31);
+		this.setBounds(posX, posY, 50, 32);
 		this.add(this.piece);
 	}
 }

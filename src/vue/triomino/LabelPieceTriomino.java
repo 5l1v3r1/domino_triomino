@@ -1,4 +1,5 @@
 package vue.triomino;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -6,13 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import modele.triomino.PieceTriomino;
 
@@ -72,26 +68,39 @@ public class LabelPieceTriomino extends JLabel {
 		}
 		this.forme = forme;
 		this.setVisible(true);
-	
+
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		((Graphics2D) g).fill(forme);
-		((Graphics2D) g).setColor(Color.WHITE);
-		((Graphics2D) g).draw(forme);
-		((Graphics2D) g).setFont(new Font("TimesRoman", Font.BOLD, 13));
-		if (direction == 1) {
-			((Graphics2D) g).drawString(String.valueOf(px), 23 + posX, 13 + posY);
-			((Graphics2D) g).drawString(String.valueOf(py), 10 + posX, 30 + posY);
-			((Graphics2D) g).drawString(String.valueOf(pz), 35 + posX, 30 + posY);
+		if (this.px == 7) {// piece vide
+			((Graphics2D) g).setColor(Color.WHITE);
+			((Graphics2D) g).draw(forme);
+		} else if (this.px == 8) {
+			// piece retournée
+			((Graphics2D) g).setColor(Color.WHITE);
+			((Graphics2D) g).fill(forme);
+			((Graphics2D) g).draw(forme);
+		} else if (this.px == 9) {
+			// piece inexistante
+			((Graphics2D) g).setColor(Color.BLUE);
+			((Graphics2D) g).draw(forme);
 		} else {
-			((Graphics2D) g).drawString(String.valueOf(px), 23 + posX, 28 + posY);
-			((Graphics2D) g).drawString(String.valueOf(py), 10 + posX, 10 + posY);
-			((Graphics2D) g).drawString(String.valueOf(pz), 35 + posX, 10 + posY);
+			((Graphics2D) g).fill(forme);
+			((Graphics2D) g).setColor(Color.WHITE);
+			((Graphics2D) g).draw(forme);
+			((Graphics2D) g).setFont(new Font("TimesRoman", Font.BOLD, 13));
+			if (direction == 1) {
+				((Graphics2D) g).drawString(String.valueOf(px), 23 + posX, 13 + posY);
+				((Graphics2D) g).drawString(String.valueOf(py), 10 + posX, 30 + posY);
+				((Graphics2D) g).drawString(String.valueOf(pz), 35 + posX, 30 + posY);
+			} else {
+				((Graphics2D) g).drawString(String.valueOf(px), 23 + posX, 28 + posY);
+				((Graphics2D) g).drawString(String.valueOf(py), 10 + posX, 10 + posY);
+				((Graphics2D) g).drawString(String.valueOf(pz), 35 + posX, 10 + posY);
+			}
 		}
-
 	}
 
 	@Override
@@ -109,6 +118,5 @@ public class LabelPieceTriomino extends JLabel {
 		super.paintBorder(g);
 		((Graphics2D) g).draw(forme);
 	}
-	
 
 }

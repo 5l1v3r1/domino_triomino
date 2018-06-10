@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,9 +48,9 @@ public class ChoixRotTriomino {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(PieceTriomino piece) {
-		JLabel label = new JLabel();
-		JLabel label1 = new JLabel();
-		JLabel label2 = new JLabel();
+		VuePieceTriomino label = new VuePieceTriomino(new PieceTriomino(x, y, z),29,64,1);
+		VuePieceTriomino label1 = new VuePieceTriomino(new PieceTriomino(z, x, y),124, 64,1);
+		VuePieceTriomino label2 = new VuePieceTriomino(new PieceTriomino(y, z, x),226, 64,1);
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 328, 216);
@@ -60,9 +59,9 @@ public class ChoixRotTriomino {
 		JLabel lblVeuillezChoisirLorientation = new JLabel("Veuillez choisir l'orientation de la piece ");
 		lblVeuillezChoisirLorientation.setBounds(19, 23, 325, 29);
 		frame.getContentPane().add(lblVeuillezChoisirLorientation);
-		label.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(new PieceTriomino(x, y, z),1)));
-		label1.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(new PieceTriomino(z, x, y),1)));
-		label2.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(new PieceTriomino(y, z, x),1)));
+//		label.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(new PieceTriomino(x, y, z),1)));
+//		label1.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(new PieceTriomino(z, x, y),1)));
+//		label2.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(new PieceTriomino(y, z, x),1)));
 
 		label.setBorder(new LineBorder(Color.RED));
 		label.addMouseListener(new MouseAdapter() {

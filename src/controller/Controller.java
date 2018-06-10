@@ -24,7 +24,7 @@ public class Controller {
 	public static int i;
 	public static boolean piocheOk = false; // voir si le bouton pioche a ete
 											// utilise
-	private static boolean partieCommance=false;
+	private static boolean partieCommance = false;
 
 	private static Point getCoord(Point[][] table, int x, int y) {
 		return table[x][y];
@@ -317,25 +317,26 @@ public class Controller {
 						tableTriomino.getBoutonPiocher(0).addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								if(!partieCommance){
-								modeleTriomino.getJoueurs().get(0).piocher(modeleTriomino.getDeck(), 1);
-								piocheOk = true;}
-								else if(tableTriomino.getBoutonPiocher(0).isEnabled()){
+								if (!partieCommance) {
+									modeleTriomino.getJoueurs().get(0).piocher(modeleTriomino.getDeck(), 1);
+									piocheOk = true;
+								} else if (tableTriomino.getBoutonPiocher(0).isEnabled()) {
 									modeleTriomino.getJoueurs().get(0).piocher(modeleTriomino.getDeck(), 1);
 									modeleTriomino.getJoueurs().get(0)
 											.setScore(modeleTriomino.getJoueurs().get(0).getScore() - 5);
 									modeleTriomino.getJoueurs().get(0).setNombreDePioches(
 											modeleTriomino.getJoueurs().get(0).getNombreDePioches() + 1);
-									System.out.println(modeleTriomino.getJoueurs().get(0).getNombreDePioches() );
-									if (modeleTriomino.getJoueurs().get(0).getNombreDePioches() > 3) {
+									// System.out.println(modeleTriomino.getJoueurs().get(0).getNombreDePioches()
+									// );
+									if (modeleTriomino.getJoueurs().get(0).getNombreDePioches() >= 3) {
 										tableTriomino.getBoutonPiocher(0).setEnabled(false);
 										modeleTriomino.getJoueurs().get(0)
 												.setScore(modeleTriomino.getJoueurs().get(0).getScore() - 10);
 									}
 									tableTriomino.dessinerPiecesJoueur(0, modeleTriomino.getJoueurs().get(0).getMain());
-						
+
 								}
-								
+
 							}
 						});
 						break;
@@ -343,25 +344,26 @@ public class Controller {
 						tableTriomino.getBoutonPiocher(1).addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								if(!partieCommance){
-								modeleTriomino.getJoueurs().get(1).piocher(modeleTriomino.getDeck(), 1);
-								piocheOk = true;}
-								else if(tableTriomino.getBoutonPiocher(1).isEnabled()){
+								if (!partieCommance) {
+									modeleTriomino.getJoueurs().get(1).piocher(modeleTriomino.getDeck(), 1);
+									piocheOk = true;
+								} else if (tableTriomino.getBoutonPiocher(1).isEnabled()) {
 									modeleTriomino.getJoueurs().get(1).piocher(modeleTriomino.getDeck(), 1);
 									modeleTriomino.getJoueurs().get(1)
 											.setScore(modeleTriomino.getJoueurs().get(1).getScore() - 5);
 									modeleTriomino.getJoueurs().get(1).setNombreDePioches(
 											modeleTriomino.getJoueurs().get(1).getNombreDePioches() + 1);
-									System.out.println(modeleTriomino.getJoueurs().get(1).getNombreDePioches() );
-									if (modeleTriomino.getJoueurs().get(1).getNombreDePioches() > 3) {
+									// System.out.println(modeleTriomino.getJoueurs().get(1).getNombreDePioches()
+									// );
+									if (modeleTriomino.getJoueurs().get(1).getNombreDePioches() >= 3) {
 										tableTriomino.getBoutonPiocher(1).setEnabled(false);
 										modeleTriomino.getJoueurs().get(1)
 												.setScore(modeleTriomino.getJoueurs().get(1).getScore() - 10);
 									}
 									tableTriomino.dessinerPiecesJoueur(1, modeleTriomino.getJoueurs().get(0).getMain());
-						
+
 								}
-								
+
 							}
 						});
 						break;
@@ -369,25 +371,25 @@ public class Controller {
 						tableTriomino.getBoutonPiocher(2).addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								if(!partieCommance){
-								modeleTriomino.getJoueurs().get(2).piocher(modeleTriomino.getDeck(), 1);
-								piocheOk = true;}
-								else if(tableTriomino.getBoutonPiocher(2).isEnabled()){
+								if (!partieCommance) {
+									modeleTriomino.getJoueurs().get(2).piocher(modeleTriomino.getDeck(), 1);
+									piocheOk = true;
+								} else if (tableTriomino.getBoutonPiocher(2).isEnabled()) {
 									modeleTriomino.getJoueurs().get(2).piocher(modeleTriomino.getDeck(), 1);
 									modeleTriomino.getJoueurs().get(2)
 											.setScore(modeleTriomino.getJoueurs().get(2).getScore() - 5);
 									modeleTriomino.getJoueurs().get(2).setNombreDePioches(
 											modeleTriomino.getJoueurs().get(2).getNombreDePioches() + 1);
-									System.out.println(modeleTriomino.getJoueurs().get(2).getNombreDePioches() );
-									if (modeleTriomino.getJoueurs().get(2).getNombreDePioches() > 3) {
+
+									if (modeleTriomino.getJoueurs().get(2).getNombreDePioches() >= 3) {
 										tableTriomino.getBoutonPiocher(2).setEnabled(false);
 										modeleTriomino.getJoueurs().get(2)
 												.setScore(modeleTriomino.getJoueurs().get(2).getScore() - 10);
 									}
 									tableTriomino.dessinerPiecesJoueur(2, modeleTriomino.getJoueurs().get(2).getMain());
-						
+
 								}
-								
+
 							}
 						});
 						break;
@@ -395,25 +397,26 @@ public class Controller {
 						tableTriomino.getBoutonPiocher(3).addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								if(!partieCommance){
-								modeleTriomino.getJoueurs().get(3).piocher(modeleTriomino.getDeck(), 1);
-								piocheOk = true;}
-								else if(tableTriomino.getBoutonPiocher(3).isEnabled()){
+								if (!partieCommance) {
+									modeleTriomino.getJoueurs().get(3).piocher(modeleTriomino.getDeck(), 1);
+									piocheOk = true;
+								} else if (tableTriomino.getBoutonPiocher(3).isEnabled()) {
 									modeleTriomino.getJoueurs().get(3).piocher(modeleTriomino.getDeck(), 1);
 									modeleTriomino.getJoueurs().get(3)
 											.setScore(modeleTriomino.getJoueurs().get(3).getScore() - 5);
 									modeleTriomino.getJoueurs().get(3).setNombreDePioches(
 											modeleTriomino.getJoueurs().get(3).getNombreDePioches() + 1);
-									System.out.println(modeleTriomino.getJoueurs().get(3).getNombreDePioches() );
-									if (modeleTriomino.getJoueurs().get(3).getNombreDePioches() > 3) {
+									// System.out.println(modeleTriomino.getJoueurs().get(3).getNombreDePioches()
+									// );
+									if (modeleTriomino.getJoueurs().get(3).getNombreDePioches() >= 3) {
 										tableTriomino.getBoutonPiocher(3).setEnabled(false);
 										modeleTriomino.getJoueurs().get(3)
 												.setScore(modeleTriomino.getJoueurs().get(3).getScore() - 10);
 									}
 									tableTriomino.dessinerPiecesJoueur(2, modeleTriomino.getJoueurs().get(2).getMain());
-						
+
 								}
-								
+
 							}
 						});
 						break;
@@ -423,7 +426,7 @@ public class Controller {
 				}
 
 			}
-			System.out.println("fin init noms");
+			// System.out.println("fin init noms");
 			// fin init noms et boutons et main vides
 			// on vas determiner le jouer qui commance ( nebdew mel joueur 1
 			// w yebdew wahna mechin kenou cpu yepiochi wahdou sinon pioche
@@ -436,7 +439,7 @@ public class Controller {
 			do {
 				for (int i = 0; i < nbJoueurs; i++) {
 					// dans cette boucle les nbJoueurs doivent piocher
-					System.out.println("attente pioche du joueur " + joueurCourant);
+
 					if (!jCourant.isCpu()) {
 						while (!piocheOk) {
 							System.out.print("");
@@ -444,10 +447,8 @@ public class Controller {
 						piocheOk = false;
 					} else {
 						modeleTriomino.getJoueurs().get(i).piocher(modeleTriomino.getDeck(), 1);
-						System.out.println("cpu a piocher");
 
 					}
-					System.out.println("fin pioche du joueur " + joueurCourant);
 
 					joueurCourant = (joueurCourant + 1) % nbJoueurs;
 					jCourant = modeleTriomino.getJoueurs().get(joueurCourant);
@@ -455,11 +456,12 @@ public class Controller {
 					tableTriomino.setQuiPeutPiocher(joueurCourant, jCourant, modeleTriomino.getDeck());
 					// dessiner la pieces pioché a chaque fois
 					tableTriomino.dessinerPiecesJoueur(i, modeleTriomino.getJoueurs().get(i).getMain());
-					System.out.println("dessin des pieces du joueur " + joueurCourant);
+					// System.out.println("dessin des pieces du joueur " +
+					// joueurCourant);
 				}
 				tentative++;
 			} while (modeleTriomino.getJoueurQuiCommance(tentative) == 4);
-			partieCommance=true;
+			partieCommance = true;
 			joueurCourant = modeleTriomino.getJoueurQuiCommance(tentative);
 			System.out.println("C'est le joueur " + joueurCourant + " qui commance");
 			jCourant = modeleTriomino.getJoueurs().get(joueurCourant);
@@ -481,102 +483,9 @@ public class Controller {
 				// vider la main
 			}
 
-			// redefinition des listner des boutons piocher pour prendre en
-			// compte le score et le max de pioche
-//			System.out.println("changement des listner");
-//			for (int i = 0; i < nbJoueurs; i++) { // redef listners
-//
-//				if (!modeleTriomino.getJoueurs().get(i).isCpu()) {
-//					// si le// joueur n'est pascpu il fautactiver le bouton //
-//					// pioche etlui faire/ un// listner
-//
-//					switch (i) {
-//					case 0:
-//						tableTriomino.getBoutonPiocher(0).addMouseListener(new MouseAdapter() {
-//							@Override
-//							public void mouseClicked(MouseEvent e) {
-//								System.out.println("clicked");
-//								modeleTriomino.getJoueurs().get(0).piocher(modeleTriomino.getDeck(), 1);
-//								modeleTriomino.getJoueurs().get(0)
-//										.setScore(modeleTriomino.getJoueurs().get(0).getScore() - 5);
-//								modeleTriomino.getJoueurs().get(0).setNombreDePioches(
-//										modeleTriomino.getJoueurs().get(0).getNombreDePioches() + 1);
-//								if (modeleTriomino.getJoueurs().get(0).getNombreDePioches() >= 3) {
-//									tableTriomino.getBoutonPiocher(0).setEnabled(false);
-//									modeleTriomino.getJoueurs().get(0)
-//											.setScore(modeleTriomino.getJoueurs().get(0).getScore() - 10);
-//								}
-//								tableTriomino.dessinerPiecesJoueur(0, modeleTriomino.getJoueurs().get(0).getMain());
-//							}
-//						});
-//						break;
-//					case 1:
-//						tableTriomino.getBoutonPiocher(1).addMouseListener(new MouseAdapter() {
-//							@Override
-//							public void mouseClicked(MouseEvent e) {
-//								modeleTriomino.getJoueurs().get(1).piocher(modeleTriomino.getDeck(), 1);
-//								modeleTriomino.getJoueurs().get(1)
-//										.setScore(modeleTriomino.getJoueurs().get(1).getScore() - 5);
-//								modeleTriomino.getJoueurs().get(1).setNombreDePioches(
-//										modeleTriomino.getJoueurs().get(1).getNombreDePioches() + 1);
-//								if (modeleTriomino.getJoueurs().get(1).getNombreDePioches() >= 3) {
-//									tableTriomino.getBoutonPiocher(1).setEnabled(false);
-//									modeleTriomino.getJoueurs().get(1)
-//											.setScore(modeleTriomino.getJoueurs().get(1).getScore() - 10);
-//
-//								}
-//								tableTriomino.dessinerPiecesJoueur(1, modeleTriomino.getJoueurs().get(1).getMain());
-//							}
-//						});
-//						break;
-//					case 2:
-//						tableTriomino.getBoutonPiocher(2).addMouseListener(new MouseAdapter() {
-//							@Override
-//							public void mouseClicked(MouseEvent e) {
-//								modeleTriomino.getJoueurs().get(2).piocher(modeleTriomino.getDeck(), 1);
-//								modeleTriomino.getJoueurs().get(2)
-//										.setScore(modeleTriomino.getJoueurs().get(2).getScore() - 5);
-//								modeleTriomino.getJoueurs().get(2).setNombreDePioches(
-//										modeleTriomino.getJoueurs().get(2).getNombreDePioches() + 1);
-//								if (modeleTriomino.getJoueurs().get(2).getNombreDePioches() >= 3) {
-//									modeleTriomino.getJoueurs().get(2)
-//											.setScore(modeleTriomino.getJoueurs().get(2).getScore() - 10);
-//									tableTriomino.getBoutonPiocher(2).setEnabled(false);
-//								}
-//								tableTriomino.dessinerPiecesJoueur(2, modeleTriomino.getJoueurs().get(2).getMain());
-//							}
-//						});
-//						break;
-//					case 3:
-//						
-//						tableTriomino.getBoutonPiocher(3).addMouseListener(new MouseAdapter() {
-//							@Override
-//							public void mouseClicked(MouseEvent e) {
-//								modeleTriomino.getJoueurs().get(3).piocher(modeleTriomino.getDeck(), 1);
-//								modeleTriomino.getJoueurs().get(3)
-//										.setScore(modeleTriomino.getJoueurs().get(3).getScore() - 5);
-//								modeleTriomino.getJoueurs().get(3).setNombreDePioches(
-//										modeleTriomino.getJoueurs().get(3).getNombreDePioches() + 1);
-//								if (modeleTriomino.getJoueurs().get(3).getNombreDePioches() >= 3) {
-//									tableTriomino.getBoutonPiocher(3).setEnabled(false);
-//									modeleTriomino.getJoueurs().get(3)
-//											.setScore(modeleTriomino.getJoueurs().get(3).getScore() - 10);
-//
-//								}
-//								tableTriomino.dessinerPiecesJoueur(3, modeleTriomino.getJoueurs().get(3).getMain());
-//							}
-//						});
-//						break;
-//					default:
-//						break;
-//					}
-//				}
-//
-//			} // fin redef listner
-
 			// le debut du jeu va commancer ici
 			System.out.println("debut de jeu");
-
+			ArrayList<Point> extre = new ArrayList<Point>();
 			Point pointJoue = new Point(-1, -1);
 
 			// premier coup
@@ -593,7 +502,7 @@ public class Controller {
 					System.err.print(""); // choix piece main
 
 				}
-				
+
 				System.out.println(
 						"Le joueur a choisi la piece dont l'indice est " + tableTriomino.getChoixJoueur(joueurCourant));
 
@@ -609,8 +518,12 @@ public class Controller {
 				jCourant.getMain().remove(tableTriomino.getChoixJoueur(joueurCourant));
 			}
 			jCourant.ajouterExtremites(1, modeleTriomino, 57, 57);
+			///////////
+			//tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
+			///////////
 			tableTriomino.dessinerPiecesJoueur(joueurCourant, modeleTriomino.getJoueurs().get(joueurCourant).getMain());
-			tableTriomino.dessinerPiece(modeleTriomino.getTable()[57][57], 57, 57);
+			//tableTriomino.dessinerPiece(modeleTriomino.getTable()[57][57], 57, 57);
+			tableTriomino.getTable()[57][57].getPiece().changerPiece(modeleTriomino.getTable()[57][57]);
 			joueurCourant = (joueurCourant + 1) % nbJoueurs;
 			jCourant = modeleTriomino.getJoueurs().get(joueurCourant);
 			tableTriomino.setToken(joueurCourant);
@@ -620,6 +533,7 @@ public class Controller {
 			// fin premier coup
 
 			do {
+
 				if (jCourant.isCpu()) {// joueur cpu
 					if (jCourant.nePeutPasJouer(1, modeleTriomino)) { // pioche
 																		// 1
@@ -638,8 +552,9 @@ public class Controller {
 								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
 
 					}
-					if (jCourant.nePeutPasJouer(1, modeleTriomino)) { // pioche
-																		// 3
+					if (jCourant.nePeutPasJouer(1, modeleTriomino)) {
+						// 3eme pioche
+
 						System.out.println("joueur cpu " + joueurCourant + " ne peut pas jouer");
 						jCourant.piocher(modeleTriomino.getDeck(), 1);
 						jCourant.setScore(jCourant.getScore() - 5);
@@ -647,23 +562,31 @@ public class Controller {
 								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
 
 					}
-					if (jCourant.nePeutPasJouer(1, modeleTriomino)) { // ne peut
-																		// pas
-																		// jouer
-																		// apres
-																		// 3
-																		// pioches
+					if (jCourant.nePeutPasJouer(1, modeleTriomino)) {
+						// ne peut pas jouer apres 3 pioches
 						System.out.println("joueur cpu " + joueurCourant + " ne peut pas jouer");
 						jCourant.setScore(jCourant.getScore() - 10);
 						tableTriomino.dessinerPiecesJoueur(joueurCourant,
 								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
 						// le joueur passe son tour
 					} else { // le joueur peut jouer
-						pointJoue = jCourant.coup(0, null, 0, modeleTriomino, 0, 0);
+						pointJoue = jCourant.coup(0, null, 0, modeleTriomino, 0, 0, extre);
+					
+					
+						tableTriomino.getTable()[pointJoue.getX()][pointJoue.getY()].getPiece()
+								.changerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()]);
+						/////////
+						//tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
+						
+					
+
+						tableTriomino.dessinerPiecesJoueur(joueurCourant,
+								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
+					
 						// coup cpu
 					}
 				} else {// joueur humain
-					
+
 					jCourant.setNombreDePioches(0);
 					// reinit nombre de pioches pour
 					// calculer s'il a piocher 3
@@ -671,9 +594,10 @@ public class Controller {
 					do {
 						tableTriomino.resetChoix();
 						tableTriomino.resetPieceChoisie();
-						System.out.println(tableTriomino.getPieceChoisie());
+						// System.out.println(tableTriomino.getPieceChoisie());
 						if (jCourant.nePeutPasJouer(jeu, modeleTriomino) && jCourant.getNombreDePioches() >= 3) {
 							// joueur passe
+							break;
 						} else {
 
 							System.out.println("c'est le tour de l'humain " + joueurCourant);
@@ -699,31 +623,43 @@ public class Controller {
 							while (tableTriomino.getPieceChoisie().getX() == -1) {
 								System.out.print(""); // choix table
 							}
-							Point point=TableTriomino.convertXYtoIJ(tableTriomino.getPieceChoisie().getX(), tableTriomino.getPieceChoisie().getY());
+							Point point = tableTriomino.getPieceChoisie();
 							pointJoue = jCourant.coup(jeu,
 									jCourant.getMain().get(tableTriomino.getChoixJoueur(joueurCourant)),
-									tableTriomino.getChoixJoueur(joueurCourant), modeleTriomino,
-									point.getX(),point.getY());
+									tableTriomino.getChoixJoueur(joueurCourant), modeleTriomino, point.getX(),
+									point.getY(), extre);
 
 						}
 
 					} while (pointJoue.getX() == -1);
+					if (pointJoue.getX() == -1) {
+						// le joueur a passé son tour
+					} else {
+					
+						System.out.println(tableTriomino.getTable()[pointJoue.getX()][pointJoue.getY()]);
+						tableTriomino.getTable()[pointJoue.getX()][pointJoue.getY()].getPiece()
+								.changerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()]);
+					/////////	tableTriomino.dessinerPlacesExtremites(modeleTriomino.getExtremite());
+					
+						tableTriomino.dessinerPiecesJoueur(joueurCourant,
+								modeleTriomino.getJoueurs().get(joueurCourant).getMain());
+					
+					}
 					tableTriomino.resetChoix();
 					tableTriomino.resetPieceChoisie();
 
 				} // fin humain
-					// dessin de la piece
-				tableTriomino.dessinerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()],
-						pointJoue.getX(), pointJoue.getY());
-				tableTriomino.dessinerPiecesJoueur(joueurCourant,
-						modeleTriomino.getJoueurs().get(joueurCourant).getMain());
+				
+				// tableTriomino.dessinerPiece(modeleTriomino.getTable()[pointJoue.getX()][pointJoue.getY()],
+				// pointJoue.getX(), pointJoue.getY());
+
 				joueurCourant = (joueurCourant + 1) % nbJoueurs;
 				jCourant = modeleTriomino.getJoueurs().get(joueurCourant);
 				tableTriomino.setToken(joueurCourant);
 				tableTriomino.setQuiPeutPiocher(joueurCourant, jCourant, modeleTriomino.getDeck());
 
 			} while (modeleTriomino.finPartie(1) == 5);
-			partieCommance=false;
+			partieCommance = false;
 		}
 		System.out.println("fin Controller.main");
 	}

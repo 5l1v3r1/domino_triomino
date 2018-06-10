@@ -102,38 +102,56 @@ public class JoueurTriomino {
 	public boolean mainVide() {
 		return (this.main.size() == 0);
 	}
-	public void ajouterExtremites(int jeu,ModeleTriomino table, int newX,int newY){
+	public ArrayList<Point> ajouterExtremites(int jeu,ModeleTriomino table, int newX,int newY){
+	
 		int direction=ModeleTriomino.getDirection(newY, newY);
+		System.out.println("direction de la piece joue = "+direction);
+		ArrayList<Point> resultat=new ArrayList<Point>();
 		int x=newX;
 		int y=newY;
 		if(table.getTable()[x][y+1]==null){
+			
 			table.getExtremite().add(new Point(x, y+1));
+			resultat.add(new Point(x, y+1));
 		}
 		if(table.getTable()[x][y-1]==null){
+			
 			table.getExtremite().add(new Point(x, y-1));
+			resultat.add(new Point(x, y-1));
 		}
 		if(direction==1){
+			
 			if(table.getTable()[x+1][y]==null){
 				table.getExtremite().add(new Point(x+1, y));
+				resultat.add(new Point(x+1, y));
 			}
 		}
-		else{
+		if(direction==0){
+			
 			if(table.getTable()[x-1][y]==null){
 				table.getExtremite().add(new Point(x-1, y));
+				resultat.add(new Point(x-1, y));
 			}
 		}
+		
+		
+		return resultat;
 		}
 	public void supprimerExtremites(int jeu,ModeleTriomino table, int newX,int newY){
 		table.getExtremite().remove(new Point(newX, newY));
 	}
 	// le coup dans triomino mch ki il domino ; il joueur yenzl al blasa li yheb yhot fiha lpiece mch al piece li bch yrakeb alih ( hit les coordonnes yethesbo )
-	public Point coup(int jeu, PieceTriomino piece, int indexDePieceDansLaMain, ModeleTriomino table, int posX, int posY) {
+	public Point coup(int jeu, PieceTriomino piece, int indexDePieceDansLaMain, ModeleTriomino table, int posX, int posY,ArrayList <Point>extre) {
 		if(!this.isCpu()){ // humain
 			if(table.coupValide(jeu, piece, new Point(posX, posY))){
+			
 				table.getTable()[posX][posY]=piece;
-				
+			
 			this.supprimerExtremites(jeu, table, posX, posY);
-			this.ajouterExtremites(jeu, table, posX, posY);
+			extre=this.ajouterExtremites(jeu, table, posX, posY);
+			
+			
+			
 			this.getMain().remove(indexDePieceDansLaMain);
 			return new Point(posX, posY);
 			}
@@ -146,9 +164,10 @@ public class JoueurTriomino {
 				for(Point ext:table.getExtremite()){
 					for(PieceTriomino pieceCpu:this.getMain().get(i).getAllSwipes()){
 						if(table.coupValide(jeu, pieceCpu, ext)){
+						
 							table.getTable()[ext.getX()][ext.getY()]=pieceCpu;
 							this.supprimerExtremites(jeu, table, ext.getX(), ext.getY());
-							this.ajouterExtremites(jeu, table, ext.getX(), ext.getY());
+							extre=this.ajouterExtremites(jeu, table, ext.getX(), ext.getY());
 							this.getMain().remove(i);
 							return new Point(ext.getX(), ext.getY());
 						}
