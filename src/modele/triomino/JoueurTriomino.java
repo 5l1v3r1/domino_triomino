@@ -10,6 +10,14 @@ public class JoueurTriomino {
 	private int score;
 	private boolean cpu;
 	private ArrayList<PieceTriomino> main;
+	private int nombreDePioches;
+	public int getNombreDePioches() {
+		return nombreDePioches;
+	}
+
+	public void setNombreDePioches(int nombreDePioches) {
+		this.nombreDePioches = nombreDePioches;
+	}
 
 	public String getNom() {
 		return nom;
@@ -85,6 +93,7 @@ public class JoueurTriomino {
 			Collections.shuffle(pieces);
 			this.main.add(pieces.get(0));
 			pieces.remove(0);
+			
 			return true;
 	
 	
@@ -129,7 +138,7 @@ public class JoueurTriomino {
 			return new Point(posX, posY);
 			}
 			else {
-				return new Point(1, 1);
+				return new Point(-1, -1);
 			}
 		}
 		else{ //coup cpu
@@ -146,7 +155,7 @@ public class JoueurTriomino {
 					}
 				}
 			}
-			return  new Point(1, 1);
+			return  new Point(-1, -1);
 		}
 	}
 	

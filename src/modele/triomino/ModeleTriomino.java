@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import modele.Point;
+import modele.domino.JoueurDomino;
 
 public class ModeleTriomino {
 	private PieceTriomino table[][];
@@ -28,11 +29,15 @@ public class ModeleTriomino {
 		this.extremite = extremite;
 	}
 
-	public ModeleTriomino(int jeu, ArrayList<JoueurTriomino> joueurs) { // dom=0,tri=1
+	public ModeleTriomino(int jeu, ArrayList<JoueurDomino> joueurs) { // dom=0,tri=1
 		
 			this.setTable(new PieceTriomino[113][113]);
 			this.deck = new ArrayList<PieceTriomino>();
-			this.joueurs = joueurs;
+			this.joueurs=new ArrayList<JoueurTriomino>();
+			for(JoueurDomino j:joueurs){
+				this.joueurs.add(new JoueurTriomino(1, j.getNom(), j.isCpu()));
+			}
+			//this.joueurs = joueurs;
 			this.extremite = new ArrayList<Point>();
 			this.initDeck(jeu);
 		
@@ -51,25 +56,25 @@ public class ModeleTriomino {
 		int x=p.getX();
 		int y=p.getY();
 		if(direction==0){//sommet en bas
-			boolean haut=(this.getTable()[x-1][y]==null || ( this.getTable()[x-1][y].getX()==piece.getX() && this.getTable()[x-1][y].getZ()==piece.getZ()));
-			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x+1][y].getY()==piece.getY()));
-			boolean droite=(this.getTable()[x][y+1]==null || ( this.getTable()[x][y+1].getX()==piece.getY() && this.getTable()[x][y+1].getY()==piece.getZ()));
-			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1].getZ()==piece.getY() && this.getTable()[x][y-1].getY()==piece.getX()));
+			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getX()==piece.getX() && this.getTable()[x-1][y].getZ()==piece.getZ()));
+			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x+1][y]!=null&&this.getTable()[x+1][y].getY()==piece.getY()));
+			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getX()==piece.getY() && this.getTable()[x][y+1].getY()==piece.getZ()));
+			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1]!=null&& this.getTable()[x][y-1].getZ()==piece.getY() && this.getTable()[x][y-1].getY()==piece.getX()));
 			return (haut && bas && gauche && droite);
 		}else {//sommet en haut
-			boolean haut=(this.getTable()[x-1][y]==null || ( this.getTable()[x-1][y].getY()==piece.getY()));
-			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x][y+1].getX()==piece.getX() &&  this.getTable()[x+1][y].getZ()==piece.getZ()));
-			boolean droite=(this.getTable()[x][y+1]==null || ( this.getTable()[x][y+1].getY()==piece.getZ() && this.getTable()[x][y+1].getX()==piece.getY()));
-			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1].getY()==piece.getX() && this.getTable()[x][y-1].getZ()==piece.getY()));
+			boolean haut=(this.getTable()[x-1][y]==null || (this.getTable()[x-1][y]!=null&& this.getTable()[x-1][y].getY()==piece.getY()));
+			boolean bas=(this.getTable()[x+1][y]==null || (this.getTable()[x+1][y]!=null && this.getTable()[x+1][y].getX()==piece.getX() &&  this.getTable()[x+1][y].getZ()==piece.getZ()));
+			boolean droite=(this.getTable()[x][y+1]==null || (this.getTable()[x][y+1]!=null&& this.getTable()[x][y+1].getY()==piece.getZ() && this.getTable()[x][y+1].getX()==piece.getY()));
+			boolean gauche=(this.getTable()[x][y-1]==null || (this.getTable()[x][y-1]!=null && this.getTable()[x][y-1].getY()==piece.getX() && this.getTable()[x][y-1].getZ()==piece.getY()));
 			return (haut && bas && gauche && droite);
 		}
 	}
 
 	public void initDeck(int jeu) {
 		
-			for (int i = 0; i <= 6; i++) {
-				for (int j = i; j <= 6; j++) {
-					for( int k=j; k<=6;k++){
+			for (int i = 0; i < 6; i++) {
+				for (int j = i; j < 6; j++) {
+					for( int k=j; k<6;k++){
 					deck.add(new PieceTriomino(i, j,k));
 					}
 				}
@@ -182,5 +187,28 @@ public class ModeleTriomino {
 
 	public boolean verifTripleHexagone(Point joue){
 		return (this.verifHexagone(joue, 0) && this.verifHexagone(joue, 1)  && this.verifHexagone(joue, 2)); 
+	}
+
+	public  int getJoueurQuiCommance(int tentative) { //retourn 4 si il ya 2 joueurs qui ont le max
+		int max=joueurs.get(0).getMain().get(tentative).valeur();
+		int resultat=0;
+		int nbMax=0;
+		for(int i=0;i<joueurs.size();i++){
+			if(joueurs.get(i).getMain().get(tentative).valeur()>max){max=joueurs.get(i).getMain().get(tentative).valeur();}
+		}
+		for(int i=0;i<joueurs.size();i++){
+			if(joueurs.get(i).getMain().get(tentative).valeur()==max){
+				resultat=i;
+				nbMax++;
+				}
+		}
+		if(nbMax==1){
+			System.out.println("non egalite "+resultat +"commance");
+			return resultat;
+			
+		}else{
+			System.out.println("egalite");
+			return 4;
+		}
 	}
 }

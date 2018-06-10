@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.ScrollPaneConstants;
 
 import controller.Controller;
 import modele.Point;
+import modele.triomino.JoueurTriomino;
 import modele.triomino.ModeleTriomino;
 import modele.triomino.PieceTriomino;
 
@@ -33,8 +35,31 @@ public class TableTriomino {
 	private JLabel tokenJ1;
 	private Point pieceChoisie;
 	private Point table[][];
-	public static int i;
-
+	
+	private JButton j4p0;
+	private JButton j1p0;
+	private JButton j2p0;
+	private JButton j3p0;
+	
+	public JButton getBoutonPiocher(int indexJoueur){
+		switch (indexJoueur) {
+		case 0:
+			return j1p0;
+			
+		case 1:
+			return j2p0;
+			
+		case 2:
+			return j3p0;
+			
+		case 3:
+			return j4p0;
+			
+		default:
+			return null;
+			
+		}
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -50,7 +75,31 @@ public class TableTriomino {
 			}
 		});
 	}
-
+	public void setQuiPeutPiocher(int indexJoueur,JoueurTriomino joueur,ArrayList<PieceTriomino>deck){ //5 pour tout desactiver
+		j1p0.setEnabled(false);
+		j2p0.setEnabled(false);
+		j3p0.setEnabled(false);
+		j4p0.setEnabled(false);
+		if(!joueur.isCpu() && !(deck.size()==0)){
+			switch (indexJoueur) {
+			case 0:
+				j1p0.setEnabled(true);
+				break;
+			case 1:
+				j2p0.setEnabled(true);
+				break;
+			case 2:
+				j3p0.setEnabled(true);
+				break;
+			case 3:
+				j4p0.setEnabled(true);
+				break;
+			default:
+				break;
+			}
+		}
+		
+	}
 	public JPanel getZonePieces() {
 		return zonePieces;
 	}
@@ -121,14 +170,14 @@ public class TableTriomino {
 		int y=TableTriomino.convertIJtoXY(matX,matY).getY();
 		p.setBounds(x, y, 50, 50);
 		p.setIcon(new ImageIcon(TableTriomino.recuprerCheminPiece(piece, ModeleTriomino.getDirection(matX,matY ))));
-		p.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				pieceChoisie = new Point(matX, matY);
-
-			}
-		});
+//		p.addMouseListener(new MouseAdapter() {
+//
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				pieceChoisie = new Point(matX, matY);
+//
+//			}
+//		});
 		this.zonePieces.add(p);
 		this.zonePieces.repaint();
 	}
@@ -137,7 +186,7 @@ public class TableTriomino {
 		
 		return new Point(j*25,i*31);
 	}
-	public static Point convertXYtoIJ(int x, int y) {
+	public static Point convertXYtoIJ(int x, int y) { //TODO apres test
 		int i;
 		int j;
 		i=y%31;
@@ -146,8 +195,9 @@ public class TableTriomino {
 			int auxY=y%31;
 			
 		}
-		
-	return null;
+		System.out.println("Tapez j");
+		j=new Scanner(System.in).nextInt();
+	return new Point(i, j);
 }
 
 	public static String recuprerCheminPiece(PieceTriomino pieceTriomino, int direction) {
@@ -157,7 +207,7 @@ public class TableTriomino {
 		String res = new String();
 		res = "/Users/s-man/Desktop/Triomino/";
 		res += String.valueOf(pieceTriomino.getX()) + String.valueOf(pieceTriomino.getY()) + String.valueOf(pieceTriomino.getZ())+dir;
-		res += ".bmp";
+		res += ".png";
 		return res;
 	}
 
@@ -221,7 +271,7 @@ public class TableTriomino {
 		lblNomJoueur.setBounds(6, 6, 100, 16);
 		panel.add(lblNomJoueur);
 
-		JButton j3p0 = new JButton();
+		j3p0 = new JButton();
 		j3p0.setText("Piocher");
 		j3p0.setBackground(Color.YELLOW);
 		j3p0.setBounds(16, 34, 81, 45);
@@ -232,19 +282,20 @@ public class TableTriomino {
 		j3p1.setBounds(104, 34, 50, 50);
 		panel.add(j3p1);
 		int y=104;
-		for(i=0;i<30;i++){ //labels joueur 3
-			zonePiecesJoueurs[2][i] = new JLabel();
-			zonePiecesJoueurs[2][i].setBounds(y, 25, 50, 50);
-			//zonePiecesJoueurs[2][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
-			panel.add(zonePiecesJoueurs[2][i]);
-			y+=60;
-			zonePiecesJoueurs[2][i].addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					resetChoix();
-					setChoixJoueur(2, i);
-				}
-			});
+		for(int i=0;i<30;i++){ //labels joueur 3
+//			zonePiecesJoueurs[2][i] = new JLabel();
+//			zonePiecesJoueurs[2][i].setBounds(y, 25, 50, 50);
+//			//zonePiecesJoueurs[2][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
+//			panel.add(zonePiecesJoueurs[2][i]);
+//			y+=60;
+//			zonePiecesJoueurs[2][i].addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					resetChoix();
+//					setChoixJoueur(2, i);
+//				}
+//			});
+			dessinerLabelPieceMainH(2, i, panel, 104);
 		}
 		
 		
@@ -256,6 +307,7 @@ public class TableTriomino {
 							@Override
 							public void mouseClicked(MouseEvent e) {
 								resetChoix();
+							
 								setChoixJoueur(2, 1);
 							}
 						});
@@ -275,27 +327,32 @@ public class TableTriomino {
 		lblNomJoueur_1.setBounds(6, 6, 91, 16);
 		panel_1.add(lblNomJoueur_1);
 
-		JButton j1p0 = new JButton();
+		j1p0 = new JButton();
 		j1p0.setText("Piocher");
 		j1p0.setBackground(Color.YELLOW);
 		j1p0.setBounds(16, 27, 81, 48);
 		panel_1.add(j1p0);
 		y=100;
 		
-		for(i=0;i<30;i++){ // labels joueur1
-			zonePiecesJoueurs[0][i] = new JLabel();
-			//zonePiecesJoueurs[0][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
-			zonePiecesJoueurs[0][i].setBounds(y, 27, 50, 50);
-		
-			zonesJoueurs[0].add(zonePiecesJoueurs[0][i]);
-			y+=60;
-			zonePiecesJoueurs[0][i].addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					resetChoix();
-					setChoixJoueur(0, i);
-				}
-			});
+		for(int i=0;i<30;i++){ // labels joueur1
+//			zonePiecesJoueurs[0][i] = new JLabel();
+//			
+//			//zonePiecesJoueurs[0][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
+//			zonePiecesJoueurs[0][i].setBounds(y, 27, 50, 50);
+//		
+//			zonesJoueurs[0].add(zonePiecesJoueurs[0][i]);
+//			y+=60;
+//			System.out.println(i);
+//			zonePiecesJoueurs[0][i].addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					resetChoix();
+//					
+//					
+//					setChoixJoueur(0, i);
+//				}
+//			});
+			dessinerLabelPieceMainH(0, i, zonesJoueurs[0], 100);
 		}
 	
 		
@@ -322,7 +379,7 @@ public class TableTriomino {
 		lblNomJoueur_2.setBounds(6, 6, 88, 16);
 		panel_2.add(lblNomJoueur_2);
 
-		JButton j2p0 = new JButton();
+		j2p0 = new JButton();
 		j2p0.setText("Piocher");
 
 		j2p0.setBounds(6, 50, 67, 80);
@@ -330,19 +387,20 @@ public class TableTriomino {
 
 		
 		y=150;
-		for(i=0;i<30;i++){ // labels joueur2
-			zonePiecesJoueurs[1][i] = new JLabel();
-			//zonePiecesJoueurs[1][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
-			zonePiecesJoueurs[1][i].setBounds(10, y, 50, 50);
-			panel_2.add(zonePiecesJoueurs[1][i]);
-			y+=60;
-			zonePiecesJoueurs[1][i].addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					resetChoix();
-					setChoixJoueur(1, i);
-				}
-			});
+		for(int i=0;i<30;i++){ // labels joueur2
+//			zonePiecesJoueurs[1][i] = new JLabel();
+//			//zonePiecesJoueurs[1][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
+//			zonePiecesJoueurs[1][i].setBounds(10, y, 50, 50);
+//			panel_2.add(zonePiecesJoueurs[1][i]);
+//			y+=60;
+//			zonePiecesJoueurs[1][i].addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					resetChoix();
+//					setChoixJoueur(1, i);
+//				}
+//			});
+			dessinerLabelPieceMainV(1, i, panel_2, 150);
 		}
 		
 				tokenJ2 = new JLabel("Token");
@@ -369,26 +427,27 @@ public class TableTriomino {
 		lblNomJoueur_3.setBounds(6, 6, 88, 16);
 		panel_3.add(lblNomJoueur_3);
 
-		JButton j4p0 = new JButton();
+		j4p0 = new JButton();
 		j4p0.setText("Piocher");
 		j4p0.setBounds(6, 55, 50, 80);
 		panel_3.add(j4p0);
 
 		
 		y=150;
-		for(i=0;i<30;i++){ // labels joueur 4
-			zonePiecesJoueurs[3][i] = new JLabel();
-			zonePiecesJoueurs[3][i].setBounds(10, y, 50, 50);
-			//zonePiecesJoueurs[3][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
-			panel_3.add(zonePiecesJoueurs[3][i]);
-			y+=60;
-			zonePiecesJoueurs[3][i].addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					resetChoix();
-					setChoixJoueur(3, i);
-				}
-			});
+		for(int i=0;i<30;i++){ // labels joueur 4
+//			zonePiecesJoueurs[3][i] = new JLabel();
+//			zonePiecesJoueurs[3][i].setBounds(10, y, 50, 50);
+//			//zonePiecesJoueurs[3][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
+//			panel_3.add(zonePiecesJoueurs[3][i]);
+//			y+=60;
+//			zonePiecesJoueurs[3][i].addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					resetChoix();
+//					setChoixJoueur(3, i);
+//				}
+//			});
+			dessinerLabelPieceMainV(3, i, panel_3, 150);
 		}
 		
 				tokenJ4 = new JLabel("Token");
@@ -397,6 +456,13 @@ public class TableTriomino {
 				
 
 		zonePieces = new JPanel();
+		zonePieces.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pieceChoisie.setX(e.getX());
+				pieceChoisie.setX(e.getY());
+			}
+		});
 		
 		JScrollPane js = new JScrollPane();
 
@@ -432,6 +498,35 @@ public class TableTriomino {
 
 	public void setTable(Point table[][]) {
 		this.table = table;
+	}
+	public void dessinerLabelPieceMainH(int joueur,int index,JPanel panel,int commancement){
+		int y=commancement+60*index;
+		zonePiecesJoueurs[joueur][index] = new JLabel();
+		zonePiecesJoueurs[joueur][index].setBounds(y, 25, 50, 50);
+		//zonePiecesJoueurs[2][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
+		panel.add(zonePiecesJoueurs[joueur][index]);
+		zonePiecesJoueurs[joueur][index].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("joueur"+joueur+"index"+index);
+				resetChoix();
+				setChoixJoueur(joueur,index);
+			}
+		});
+	}
+	public void dessinerLabelPieceMainV(int joueur,int index,JPanel panel,int commancement){
+		int y=commancement+60*index;
+		zonePiecesJoueurs[joueur][index] = new JLabel();
+		zonePiecesJoueurs[joueur][index].setBounds(10, y, 50, 50);
+		//zonePiecesJoueurs[2][i].setIcon(new ImageIcon("/Users/s-man/Desktop/images/001.png"));
+		panel.add(zonePiecesJoueurs[joueur][index]);
+		zonePiecesJoueurs[joueur][index].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				resetChoix();
+				setChoixJoueur(joueur,index);
+			}
+		});
 	}
 
 }
