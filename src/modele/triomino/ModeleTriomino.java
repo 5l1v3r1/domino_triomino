@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import modele.Point;
+import modele.domino.JoueurDomino;
 
 public class ModeleTriomino {
 	private PieceTriomino table[][];
@@ -28,11 +29,15 @@ public class ModeleTriomino {
 		this.extremite = extremite;
 	}
 
-	public ModeleTriomino(int jeu, ArrayList<JoueurTriomino> joueurs) { // dom=0,tri=1
+	public ModeleTriomino(int jeu, ArrayList<JoueurDomino> joueurs) {
 		
 			this.setTable(new PieceTriomino[113][113]);
 			this.deck = new ArrayList<PieceTriomino>();
-			this.joueurs = joueurs;
+			this.joueurs=new ArrayList<JoueurTriomino>();
+			for(JoueurDomino j:joueurs){
+				this.joueurs.add(new JoueurTriomino(1, j.getNom(), j.isCpu()));
+			}
+			//this.joueurs = joueurs;
 			this.extremite = new ArrayList<Point>();
 			this.initDeck(jeu);
 		
@@ -47,34 +52,51 @@ public class ModeleTriomino {
 		if(!this.getExtremite().contains(p)){ // si le point joué n'est pas dans le tableau d'extremites alors coup invalide ( non permis )
 			return false;
 		}
-		int direction = ModeleTriomino.getDirection(p.getX(), p.getY()); // la variable direction bch t9olek sommet lfou9 wala louta ( 0 maaneha louta )
+		int direction = ModeleTriomino.getDirection(p.getX(), p.getY());
 		int x=p.getX();
 		int y=p.getY();
+
 		if(direction==0){//sommet en bas
-			boolean haut=(this.getTable()[x-1][y]==null || ( this.getTable()[x-1][y].getX()==piece.getX() && this.getTable()[x-1][y].getZ()==piece.getZ()));
-			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x+1][y].getY()==piece.getY()));
-			boolean droite=(this.getTable()[x][y+1]==null || ( this.getTable()[x][y+1].getX()==piece.getY() && this.getTable()[x][y+1].getY()==piece.getZ()));
-			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1].getZ()==piece.getY() && this.getTable()[x][y-1].getY()==piece.getX()));
-			return (haut && bas && gauche && droite);
+			boolean pieceJoueEnBas=(this.getTable()[x-1][y]!=null && piece.getZ()==this.getTable()[x-1][y].getX() && piece.getX()==this.getTable()[x-1][y].getZ());
+			boolean pieceJoueADroite=(this.getTable()[x][y+1]!=null && piece.getX()==this.getTable()[x][y+1].getY() && piece.getY()==this.getTable()[x][y+1].getX()) ;
+			boolean pieceJouerAGauche=(this.getTable()[x][y-1]!=null && piece.getZ()==this.getTable()[x][y-1].getY() && piece.getY()==this.getTable()[x][y-1].getZ());
+			return (pieceJoueADroite && pieceJouerAGauche && this.getTable()[x-1][y]==null ) 
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && this.getTable()[x-1][y]==null ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null && this.getTable()[x-1][y]==null)
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && pieceJoueEnBas ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null &&pieceJoueEnBas )
+					|| ( pieceJoueEnBas && this.getTable()[x][y+1]==null && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnBas && pieceJoueADroite && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnBas && pieceJouerAGauche && this.getTable()[x][y+1]==null ) 
+					||  ( pieceJoueEnBas && pieceJouerAGauche && pieceJoueADroite ) ;
+			
 		}else {//sommet en haut
-			boolean haut=(this.getTable()[x-1][y]==null || ( this.getTable()[x-1][y].getY()==piece.getY()));
-			boolean bas=(this.getTable()[x+1][y]==null || ( this.getTable()[x][y+1].getX()==piece.getX() &&  this.getTable()[x+1][y].getZ()==piece.getZ()));
-			boolean droite=(this.getTable()[x][y+1]==null || ( this.getTable()[x][y+1].getY()==piece.getZ() && this.getTable()[x][y+1].getX()==piece.getY()));
-			boolean gauche=(this.getTable()[x][y-1]==null || ( this.getTable()[x][y-1].getY()==piece.getX() && this.getTable()[x][y-1].getZ()==piece.getY()));
-			return (haut && bas && gauche && droite);
+			boolean pieceJoueEnHaut=(this.getTable()[x+1][y]!=null && piece.getX()==this.getTable()[x+1][y].getZ() && piece.getZ()==this.getTable()[x+1][y].getX());
+			boolean pieceJoueADroite=(this.getTable()[x][y+1]!=null && piece.getZ()==this.getTable()[x][y+1].getY() && piece.getY()==this.getTable()[x][y+1].getZ());
+			boolean pieceJouerAGauche=(this.getTable()[x][y-1]!=null && piece.getX()==this.getTable()[x][y-1].getY() && piece.getY()==this.getTable()[x][y-1].getX());
+			return (pieceJoueADroite && pieceJouerAGauche && this.getTable()[x+1][y]==null ) 
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && this.getTable()[x+1][y]==null ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null && this.getTable()[x+1][y]==null)
+					|| (pieceJoueADroite && this.getTable()[x][y-1]==null && pieceJoueEnHaut ) 
+					|| (pieceJouerAGauche && this.getTable()[x][y+1]==null && pieceJoueEnHaut )
+					|| ( pieceJoueEnHaut && this.getTable()[x][y+1]==null && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnHaut && pieceJoueADroite && this.getTable()[x][y-1]==null ) 
+					||  ( pieceJoueEnHaut && pieceJouerAGauche && this.getTable()[x][y+1]==null ) 
+					||  ( pieceJoueEnHaut && pieceJouerAGauche && pieceJoueADroite ) ;
 		}
 	}
 
 	public void initDeck(int jeu) {
-		
-			for (int i = 0; i <= 6; i++) {
-				for (int j = i; j <= 6; j++) {
-					for( int k=j; k<=6;k++){
+		deck=new ArrayList<PieceTriomino>();
+			for (int i = 0; i < 6; i++) {
+				for (int j = i; j < 6; j++) {
+					for( int k=j; k<6;k++){
 					deck.add(new PieceTriomino(i, j,k));
+				
 					}
 				}
 			}
-		
+	
 	}
 
 	public ArrayList<PieceTriomino> getDeck() {
@@ -100,10 +122,10 @@ public class ModeleTriomino {
 		this.getDeck().remove(0);
 		return true;
 	}
-	public int finPartie(int jeu) { // retourne l'id du joueurs ganant 5 sinon a changer plus tard
+	public int finPartie(int jeu) { // retourne l'id du joueurs ganant 5 sinon
 		
-			int min = 56;
-			int minId = 5;
+			int max = joueurs.get(0).getScore();
+			int maxId = 0;
 			
 			boolean fin = true;
 			for (int i = 0; i < joueurs.size(); i++) {
@@ -111,16 +133,16 @@ public class ModeleTriomino {
 				if (joueurs.get(i).mainVide()) {
 					return i;
 				} else {
-					if (joueurs.get(i).getMain().size() < min) {
-						min = joueurs.get(i).getMain().size();
-						minId = i;
+					if (joueurs.get(i).getScore() > max) {
+						max = joueurs.get(i).getMain().size();
+						maxId = i;
 				
 					}
-					fin = fin && joueurs.get(i).nePeutPasJouer(jeu, this);
+					fin = fin && joueurs.get(i).nePeutPasJouer(jeu, this) && joueurs.get(i).getNombreDePioches() >=3; 
 				}
 			}
 			if (fin == true) {
-				return minId;
+				return maxId;
 			} else {
 				return 5;
 			}
@@ -182,5 +204,27 @@ public class ModeleTriomino {
 
 	public boolean verifTripleHexagone(Point joue){
 		return (this.verifHexagone(joue, 0) && this.verifHexagone(joue, 1)  && this.verifHexagone(joue, 2)); 
+	}
+
+	public  int getJoueurQuiCommance(int tentative) { //retourn 4 si il ya 2 joueurs qui ont le max
+		int max=joueurs.get(0).getMain().get(tentative).valeur();
+		int resultat=0;
+		int nbMax=0;
+		for(int i=0;i<joueurs.size();i++){
+			if(joueurs.get(i).getMain().get(tentative).valeur()>max){max=joueurs.get(i).getMain().get(tentative).valeur();}
+		}
+		for(int i=0;i<joueurs.size();i++){
+			if(joueurs.get(i).getMain().get(tentative).valeur()==max){
+				resultat=i;
+				nbMax++;
+				}
+		}
+		if(nbMax==1){
+			return resultat;
+			
+		}else{
+		
+			return 4;
+		}
 	}
 }

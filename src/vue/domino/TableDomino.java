@@ -2,7 +2,6 @@ package vue.domino;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -32,21 +31,7 @@ public class TableDomino {
 	private Point pieceChoisie;
 	private Point table[][];
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// TableDomino window = new TableDomino();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	public JPanel getZonePieces() {
 		return zonePieces;
 	}
@@ -55,31 +40,29 @@ public class TableDomino {
 		this.zonePieces = zonePieces;
 	}
 
-	/**
-	 * Create the application.
-	 */
+	
 	public void setToken(int i) {
 		switch (i) {
 		case 0:
-			tokenJ1.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ1.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ2.setIcon(null);
 			tokenJ3.setIcon(null);
 			tokenJ4.setIcon(null);
 			break;
 		case 1:
-			tokenJ2.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ2.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ1.setIcon(null);
 			tokenJ3.setIcon(null);
 			tokenJ4.setIcon(null);
 			break;
 		case 2:
-			tokenJ3.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ3.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ2.setIcon(null);
 			tokenJ1.setIcon(null);
 			tokenJ4.setIcon(null);
 			break;
 		case 3:
-			tokenJ4.setIcon(new ImageIcon("/Users/s-man/Desktop/images/jeton.png"));
+			tokenJ4.setIcon(new ImageIcon("images/jeton.png"));
 			tokenJ2.setIcon(null);
 			tokenJ3.setIcon(null);
 			tokenJ1.setIcon(null);
@@ -95,11 +78,16 @@ public class TableDomino {
 		}
 	}
 
-	public void dessinerPiecesJoueur(int nbJoueur, ArrayList<PieceDomino> pieces) {
+	public void dessinerPiecesJoueur(int nbJoueur, ArrayList<PieceDomino> pieces,boolean cpu) {
 		int i;
 		for (i = 0; i < pieces.size(); i++) {
+			if(cpu){
+				zonePiecesJoueurs[nbJoueur][i].setIcon(new ImageIcon("images/0x.png"));
+					
+			}
+			else{
 			zonePiecesJoueurs[nbJoueur][i].setIcon(new ImageIcon(TableDomino.recuprerCheminPiece(pieces.get(i))));
-
+			}
 		}
 		for (; i <= 6; i++) {
 			zonePiecesJoueurs[nbJoueur][i].setIcon(null);
@@ -135,7 +123,7 @@ public class TableDomino {
 
 	public static String recuprerCheminPiece(PieceDomino piece) {
 		String res = new String();
-		res = "/Users/s-man/Desktop/images/";
+		res = "images/";
 		res += String.valueOf(piece.getRot()) + String.valueOf(piece.getX()) + String.valueOf(piece.getY());
 		res += ".png";
 		return res;
@@ -655,5 +643,13 @@ public class TableDomino {
 	public void setTable(Point table[][]) {
 		this.table = table;
 	}
+
+	public void exit() {
+		this.frame.setVisible(false);
+		this.frame.dispose();
+		
+	}
+
+	 
 
 }

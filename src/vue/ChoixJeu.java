@@ -1,6 +1,5 @@
 package vue;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,33 +13,12 @@ public class ChoixJeu {
 	private JButton btnDomino;
 	private JButton btnTriomino;
 	private int choix;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-			//		ChoixJeu window = new ChoixJeu();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
+	
 	public ChoixJeu() {
 		initialize();
 		setChoix(-1);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	public void exit(){
 		this.frame.dispose();
 	}

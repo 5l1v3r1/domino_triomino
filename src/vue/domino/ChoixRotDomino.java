@@ -36,9 +36,7 @@ public class ChoixRotDomino {
 		initialize(piece);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize(PieceDomino piece) {
 		JLabel label = new JLabel();
 		JLabel label_1 = new JLabel();

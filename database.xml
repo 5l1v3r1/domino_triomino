@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Historique><Partie><Jeu>Domino</Jeu><Joueurs><Gagnant><Id>0</Id><Nom>Player 1</Nom><Cpu>false</Cpu></Gagnant><Joueur><Id>1</Id><Nom>Player 2</Nom><Cpu>true</Cpu></Joueur><Joueur><Id>2</Id><Nom>Player 3</Nom><Cpu>false</Cpu></Joueur><Joueur><Id>3</Id><Nom>Player 4</Nom><Cpu>true</Cpu></Joueur></Joueurs></Partie></Historique>

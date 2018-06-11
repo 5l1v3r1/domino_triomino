@@ -48,11 +48,11 @@ public class ModeleDomino {
 			this.extremite = new ArrayList<Point>();
 			this.initDeck(jeu);
 		} else if (jeu == 1) {
-			// TODO triomino}
+		
 		}
 	}
 
-	public boolean coupValide(int jeu, PieceDomino piece, Point p, Point oldPoint) { // pb ici
+	public boolean coupValide(int jeu, PieceDomino piece, Point p, Point oldPoint) { 
 		int x = p.getX();
 		int y = p.getY();
 		if(piece.getRot()==0){ //piece jouée horizentale
@@ -176,142 +176,7 @@ public class ModeleDomino {
 			
 		}
 		return false;
-//		if (jeu == 0) {
-//			table = this.getTable();
-//			int x = p.getX();
-//			int y = p.getY();
-//		
-//			if (table[x][y - 1] != null) {
-//				if (table[x][y - 1].getX() == table[x][y - 1].getY() && table[x][y - 1].isCentre()
-//						&& table[x][y - 1].getRot() == 1) {
-//					if (table[x][y - 1].getX() == piece.getX()) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y - 1);
-//						return true;
-//					}
-//				} 
-//				if (table[x][y - 1].getRot() == 1) {
-//					if (piece.getRot() == 0
-//							&& ((piece.getY() == table[x][y - 1].getX() && table[x-1][y - 1]==null)|| 
-//						(	piece.getY() == table[x][y - 1].getY() && table[x+1][y - 1]==null))) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y - 1);
-//						return true;
-//					}
-//				} 
-//				if (table[x][y - 1].getRot() == 0) {
-//					if (piece.getRot() == 1 && piece.isCentre() && piece.getX() == piece.getY()
-//							&& piece.getX() == table[x][y - 1].getY()) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y - 1);
-//						return true;
-//					} else if (piece.getRot() == 0 && piece.getX() == table[x][y - 1].getY()) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y - 1);
-//						return true;
-//					}
-//				}
-//
-//			} else if (table[x][y + 1] != null) {
-//				if (table[x][y + 1].isCentre() && table[x][y + 1].getX() == table[x][y + 1].getY()
-//						&& table[x][y + 1].getRot() == 1) {
-//					if (table[x][y + 1].getX() == piece.getY()) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y + 1);
-//						return true;
-//					}
-//				}
-//				if (table[x][y + 1].getRot() == 1) {
-//					if (piece.getRot() == 0 && ((piece.getX() == table[x][y - 1].getX() && table[x - 1][y + 1] == null))
-//							|| (piece.getX() == table[x][y + 1].getY() && table[x + 1][y + 1] == null)) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y + 1);
-//						return true;
-//					}
-//				} 
-//				if (table[x][y + 1].getRot() == 0) {
-//					if (piece.getRot() == 0 && piece.getY() == table[x][y + 1].getX()) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y + 1);
-//						return true;
-//					} else if (piece.getRot() == 1 && piece.isCentre() && piece.getX() == piece.getY()
-//							&& piece.getX() == table[x][y + 1].getX()) {
-//						oldPoint.setX(x);
-//						oldPoint.setY(y + 1);
-//						return true;
-//					}
-//				}
-//			} else if (table[x - 1][y] != null) {
-//
-//				if (table[x - 1][y].isCentre() && table[x - 1][y].getX() == table[x - 1][y].getY()
-//						&& table[x - 1][y].getRot() == 0) {
-//					if (table[x - 1][y].getX() == piece.getY()) {
-//						oldPoint.setX(x - 1);
-//						oldPoint.setY(y);
-//						return true;
-//					}
-//				} 
-//				if (table[x - 1][y].getRot() == 1) {
-//					if (piece.getRot() == 1 && piece.getX() == table[x - 1][y].getY())
-//
-//					{
-//						oldPoint.setX(x - 1);
-//						oldPoint.setY(y);
-//						return true;
-//					} else if (piece.getRot() == 0 && piece.isCentre() && piece.getX() == piece.getY()
-//							&& piece.getY() == table[x - 1][y].getX()) {
-//						oldPoint.setX(x - 1);
-//						oldPoint.setY(y);
-//						return true;
-//					}
-//				} 
-//				if (table[x - 1][y].getRot() == 0) { 
-//					if (piece.getRot() == 1 && ((piece.getX() == table[x - 1][y].getX() && table[x - 1][y - 1] == null)
-//							|| (piece.getX() == table[x - 1][y].getY() && table[x - 1][y + 1] == null))) {
-//						oldPoint.setX(x - 1);
-//						oldPoint.setY(y);
-//						return true;
-//					}
-//				}
-//
-//			} else if (table[x + 1][y] != null) {
-//				if (table[x + 1][y].isCentre() && table[x + 1][y].getX() == table[x + 1][y].getY()
-//						&& table[x + 1][y].getRot() == 0) {
-//					if (table[x + 1][y].getX() == piece.getX()) {
-//						oldPoint.setX(x + 1);
-//						oldPoint.setY(y);
-//						return true;
-//					}
-//				} 
-//				if (table[x + 1][y].getRot() == 1) {
-//					if (piece.getRot() == 1 && piece.getY() == table[x + 1][y].getX()) {
-//						oldPoint.setX(x + 1);
-//						oldPoint.setY(y);
-//						return true;
-//					} else if (piece.getRot() == 0 && piece.isCentre() && piece.getX() == piece.getY()
-//							&& piece.getX() == table[x + 1][y].getY()) {
-//						oldPoint.setX(x + 1);
-//						oldPoint.setY(y);
-//						return true;
-//					}
-//				} 
-//				if (table[x + 1][y].getRot() == 0) {
-//					if (piece.getRot() == 1 && ((piece.getX() == table[x + 1][y].getX() && table[x + 1][y - 1] == null))
-//							|| (table[x + 1][y].getY() == piece.getY() && table[x + 1][y + 1] == null)) {
-//						oldPoint.setX(x + 1);
-//						oldPoint.setY(y);
-//						return true;
-//					}
-//				}
-//
-//			}
-//		} else {
-//
-//			return false;
-//			// TODO trio
-//		}
-//		
-//		return false;
+
 	}
 
 	public void initDeck(int jeu) { // dom=0,tri=1
@@ -322,7 +187,7 @@ public class ModeleDomino {
 				}
 			}
 		} else if (jeu == 1) {
-			// TODO trio
+			
 		}
 	}
 
@@ -367,7 +232,7 @@ public class ModeleDomino {
 				return 5;
 			}
 		} else {
-			// TODO triomino
+			
 			return 0;
 		}
 	}

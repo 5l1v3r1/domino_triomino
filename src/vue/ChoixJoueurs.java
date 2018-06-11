@@ -1,20 +1,18 @@
 package vue;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import modele.domino.JoueurDomino;
-
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.awt.event.ItemEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ChoixJoueurs {
 
@@ -30,25 +28,6 @@ public class ChoixJoueurs {
 	private JCheckBox chckbxHumainP1;
 	private ArrayList<JoueurDomino> joueurs;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-				//	ChoixJoueurs window = new ChoixJoueurs(0);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public ChoixJoueurs(int jeu) {
 		joueurs = new ArrayList<JoueurDomino>();
 		initialize(jeu);
